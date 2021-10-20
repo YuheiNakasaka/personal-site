@@ -1,6 +1,5 @@
-import { Suspense } from "react"
-import { Image, BlitzPage, useMutation, Routes } from "blitz"
-import { Flex, Link, Box, Center, UnorderedList, ListItem, Avatar } from "@chakra-ui/react"
+import { BlitzPage, Routes } from "blitz"
+import { Flex, Box, Center, Link, UnorderedList, ListItem, Avatar } from "@chakra-ui/react"
 import { ExternalLinkIcon } from "@chakra-ui/icons"
 
 import Layout from "app/core/layouts/Layout"
@@ -10,29 +9,34 @@ const Home: BlitzPage = () => {
     <Flex bg="white" w="100vw" h="100vh" alignItems="center" justifyContent="center">
       <Box mx="auto">
         <Box>
-          <Avatar size="2xl" src={"razokulover-icon.png"}></Avatar>
+          <Avatar size="4xl" src={"razokulover-icon.png"}></Avatar>
         </Box>
         <Box mt={10}>
           <Center>
             <UnorderedList styleType="none">
               <ListItem>
-                <Link href="/profile" fontSize="xl">
+                <Link href="/profiles" fontSize="2xl">
                   Profile
                 </Link>
               </ListItem>
               <ListItem>
-                <Link href="/dialy" fontSize="xl">
-                  Dialy
+                <Link href="/diary" fontSize="2xl">
+                  Diary
                 </Link>
               </ListItem>
               <ListItem>
-                <Link href="https://twitter.com/razokulover" fontSize="xl" isExternal>
-                  Twitter <ExternalLinkIcon mx="2px" />
+                <Link href="https://twitter.com/razokulover" fontSize="2xl" isExternal>
+                  Twitter <ExternalLinkIcon mx="0.1rem" />
                 </Link>
               </ListItem>
               <ListItem>
-                <Link href="https://github.com/YuheiNakasaka" fontSize="xl" isExternal>
-                  GitHub <ExternalLinkIcon mx="2px" />
+                <Link href="https://github.com/YuheiNakasaka" fontSize="2xl" isExternal>
+                  GitHub <ExternalLinkIcon mx="0.1rem" />
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link href="https://zenn.dev/razokulover/" fontSize="2xl" isExternal>
+                  Zenn <ExternalLinkIcon mx="0.1rem" />
                 </Link>
               </ListItem>
             </UnorderedList>
