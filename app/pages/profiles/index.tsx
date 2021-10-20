@@ -1,16 +1,5 @@
 import { BlitzPage } from "blitz"
-import {
-  Flex,
-  Link,
-  Box,
-  Center,
-  UnorderedList,
-  ListItem,
-  Avatar,
-  Heading,
-  IconButton,
-  Text,
-} from "@chakra-ui/react"
+import { Flex, Link, Box, Wrap, UnorderedList, ListItem, IconButton, Text } from "@chakra-ui/react"
 import { ExternalLinkIcon, ChevronLeftIcon } from "@chakra-ui/icons"
 import Layout from "app/core/layouts/Layout"
 
@@ -24,8 +13,25 @@ const ProfilesPage: BlitzPage = () => {
           </Link>
         </Box>
       </Flex>
-      <Box mx="auto" pt={"3.5rem"} pb={"2.5rem"}>
-        <Box w={"50rem"}>
+      <Box
+        mx="auto"
+        pt={"6rem"}
+        pb={"2.5rem"}
+        pl={{
+          base: "2rem",
+          sm: "2rem",
+          md: "2rem",
+          lg: "0rem",
+        }}
+      >
+        <Box
+          w={{
+            base: "100%",
+            sm: "100%",
+            md: "50rem",
+            lg: "50rem",
+          }}
+        >
           <Box>
             <Text fontSize="2xl" fontWeight="bold">
               名前
