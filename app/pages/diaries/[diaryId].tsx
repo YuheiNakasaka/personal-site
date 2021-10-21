@@ -6,6 +6,7 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import Layout from "app/core/layouts/Layout"
 import getDiary from "app/diaries/queries/getDiary"
 import deleteDiary from "app/diaries/mutations/deleteDiary"
+import { DiaryContent } from "app/diaries/components/DiaryContent"
 
 export const Diary = () => {
   const router = useRouter()
@@ -23,7 +24,7 @@ export const Diary = () => {
       <Box>
         <Text fontSize="2xl">{diary.createdAt.toDateString()}</Text>
         <Box mt="2rem" mb="2rem">
-          <pre>{diary.text}</pre>
+          <DiaryContent text={diary.text}></DiaryContent>
         </Box>
 
         {user != null && (

@@ -5,6 +5,7 @@ import { ChevronLeftIcon } from "@chakra-ui/icons"
 import Layout from "app/core/layouts/Layout"
 import getDiaries from "app/diaries/queries/getDiaries"
 import { DiaryTitle } from "app/diaries/components/DiaryTitle"
+import { DiaryContent } from "app/diaries/components/DiaryContent"
 
 const ITEMS_PER_PAGE = 100
 
@@ -12,7 +13,7 @@ export const DiariesList = () => {
   const router = useRouter()
   const page = Number(router.query.page) || 0
   const [{ diaries, hasMore }] = usePaginatedQuery(getDiaries, {
-    orderBy: { id: "asc" },
+    orderBy: { id: "desc" },
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })
@@ -32,7 +33,7 @@ export const DiariesList = () => {
                     <DiaryTitle date={diary.createdAt}></DiaryTitle>
                   </Link>
                   <Box mt="1rem">
-                    <pre>{diary.text}</pre>
+                    <DiaryContent text={diary.text}></DiaryContent>
                   </Box>
                 </ListItem>
               ))}

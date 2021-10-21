@@ -23,7 +23,7 @@ const DiaryMain = () => {
     <Flex bg="white" w="100vw">
       <Flex as="header" position="fixed" top={0} width="full" py={4} px={8}>
         <Box>
-          <Link href="/">
+          <Link href="/diaries">
             <IconButton aria-label="back" color="black" rounded="full" icon={<ChevronLeftIcon />} />
           </Link>
         </Box>

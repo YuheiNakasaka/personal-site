@@ -2,7 +2,7 @@ import { resolver } from "blitz"
 import db from "db"
 import { z } from "zod"
 
-const UpdateDiary = z.object({
+export const UpdateDiary = z.object({
   id: z.number(),
   text: z.string(),
 })
