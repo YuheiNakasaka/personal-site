@@ -1,8 +1,15 @@
-import { forwardRef, ComponentPropsWithoutRef, PropsWithoutRef } from "react"
+import {
+  forwardRef,
+  ComponentPropsWithoutRef,
+  PropsWithoutRef,
+  useContext,
+  ChangeEvent,
+} from "react"
 import { useField, UseFieldConfig } from "react-final-form"
 
 import { Textarea } from "@chakra-ui/react"
 import { FormControl, FormLabel } from "@chakra-ui/form-control"
+import { FormContext, FormContextType } from "app/diaries/context/FormContext"
 
 export interface LabeledTextAreaProps extends ComponentPropsWithoutRef<typeof Textarea> {
   /** Field name. */
@@ -18,6 +25,7 @@ export interface LabeledTextAreaProps extends ComponentPropsWithoutRef<typeof Te
 
 export const LabeledTextArea = forwardRef<HTMLTextAreaElement, LabeledTextAreaProps>(
   ({ name, label, outerProps, fieldProps, labelProps, ...props }, ref) => {
+    const context: FormContextType = useContext(FormContext)
     const {
       input,
       meta: { touched, error, submitError, submitting },
@@ -36,7 +44,17 @@ export const LabeledTextArea = forwardRef<HTMLTextAreaElement, LabeledTextAreaPr
       <FormControl {...outerProps}>
         <FormLabel {...labelProps}>
           {label}
-          <Textarea {...input} disabled={submitting} {...props} ref={ref} minH="lg" />
+          <Textarea
+            {...input}
+            disabled={submitting}
+            {...props}
+            ref={ref}
+            minH="lg"
+            value={context.text}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+              context.setText(e.target.value)
+            }}
+          />
         </FormLabel>
         {touched && normalizedError && (
           <div role="alert" style={{ color: "red" }}>
