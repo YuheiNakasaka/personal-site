@@ -26,7 +26,7 @@ export const DiariesList = () => {
       <Box>
         {diaries.length !== 0 && (
           <Box>
-            <UnorderedList listStyleType="none">
+            <UnorderedList listStyleType="none" ml="0" pl="0">
               {diaries.map((diary) => (
                 <ListItem key={diary.id} mb="5rem">
                   <Link href={`/diaries/${diary.id}`} display="inline-block">
@@ -80,22 +80,12 @@ const DiariesPage: BlitzPage = () => {
             </Link>
           </Box>
         </Flex>
-        <Box
-          mx="auto"
-          pt={"6rem"}
-          pb={"2.5rem"}
-          pl={{
-            base: "2rem",
-            sm: "2rem",
-            md: "2rem",
-            lg: "0rem",
-          }}
-        >
+        <Box mx="auto" pt={"6rem"} pb={"2.5rem"}>
           <Box
             w={{
-              base: "100%",
-              sm: "100%",
-              md: "50rem",
+              base: "90vw",
+              sm: "90vw",
+              md: "45rem",
               lg: "50rem",
             }}
           >

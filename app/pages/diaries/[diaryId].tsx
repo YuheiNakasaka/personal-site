@@ -18,7 +18,7 @@ export const Diary = () => {
   return (
     <>
       <Head>
-        <title>Diary {diary.id}</title>
+        <title>{diary.createdAt.toDateString()}</title>
       </Head>
 
       <Box>
@@ -62,22 +62,12 @@ const ShowDiaryPage: BlitzPage = () => {
           </Link>
         </Box>
       </Flex>
-      <Box
-        mx="auto"
-        pt={"6rem"}
-        pb={"2.5rem"}
-        pl={{
-          base: "2rem",
-          sm: "2rem",
-          md: "2rem",
-          lg: "0rem",
-        }}
-      >
+      <Box mx="auto" pt={"6rem"} pb={"2.5rem"}>
         <Box
           w={{
-            base: "100%",
-            sm: "100%",
-            md: "50rem",
+            base: "90vw",
+            sm: "90vw",
+            md: "45rem",
             lg: "50rem",
           }}
         >
