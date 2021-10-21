@@ -20,7 +20,7 @@ const Home: BlitzPage = () => {
                 </Link>
               </ListItem>
               <ListItem>
-                <Link href="/diary" fontSize="2xl">
+                <Link href="/diaries" fontSize="2xl">
                   Diary
                 </Link>
               </ListItem>

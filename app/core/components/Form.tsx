@@ -40,9 +40,11 @@ export function Form<S extends z.ZodType<any, any>>({
           )}
 
           {submitText && (
-            <button type="submit" disabled={submitting}>
-              {submitText}
-            </button>
+            <div style={{ textAlign: "right" }}>
+              <button type="submit" disabled={submitting}>
+                {submitText}
+              </button>
+            </div>
           )}
 
           <style global jsx>{`
