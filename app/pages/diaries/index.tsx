@@ -60,7 +60,7 @@ const DiariesPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStaticP
             <Suspense fallback={<div>Loading...</div>}>
               <Box>
                 <Box>
-                  {diaries.length !== 0 && (
+                  {diaries !== undefined && diaries.length !== 0 && (
                     <Box>
                       <UnorderedList listStyleType="none" ml="0" pl="0">
                         {diaries.map((diary) => (

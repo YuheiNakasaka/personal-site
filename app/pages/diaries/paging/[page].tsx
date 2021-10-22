@@ -36,7 +36,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const { count } = await invoke(getDiaries, {})
   const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i)
-  const paths = range(1, Math.ceil(count / ITEMS_PER_PAGE)).map((number, index) => ({
+  const paths = range(1, Math.ceil(count / ITEMS_PER_PAGE)).map((_, index) => ({
     params: {
       page: `${index}`,
     },
@@ -80,7 +80,7 @@ const DiariesPagingPage: BlitzPage = (props: InferGetStaticPropsType<typeof getS
             <Suspense fallback={<div>Loading...</div>}>
               <Box>
                 <Box>
-                  {diaries.length !== 0 && (
+                  {diaries !== undefined && diaries?.length !== 0 && (
                     <Box>
                       <UnorderedList listStyleType="none" ml="0" pl="0">
                         {diaries.map((diary) => (
