@@ -12,6 +12,7 @@ const CodeBlock: CodeComponent | ReactMarkdownNames = ({
 }) => {
   const match = /language-(\w+)/.exec(className || "")
   return !inline && match ? (
+    /* @ts-ignore */
     <SyntaxHighlighter
       style={dark}
       language={match[1]}

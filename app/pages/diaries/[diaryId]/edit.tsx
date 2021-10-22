@@ -8,7 +8,7 @@ import updateDiary from "app/diaries/mutations/updateDiary"
 import { DiaryForm, FORM_ERROR } from "app/diaries/components/DiaryForm"
 import { FormContext, FormContextProvider, FormContextType } from "app/diaries/context/FormContext"
 import { DiaryContent } from "app/diaries/components/DiaryContent"
-import { UpdateDiarySchema } from "../validations"
+import { UpdateDiarySchema } from "app/diaries/validations/diaryForm"
 
 const DiaryMain = () => {
   const router = useRouter()
