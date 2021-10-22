@@ -67,7 +67,7 @@ const DiaryMain = () => {
               initialValues={{ text: "" }}
               onSubmit={async (values) => {
                 try {
-                  const diary = await createDiaryMutation(values)
+                  const diary = await createDiaryMutation({ text: context.text })
                   router.push(Routes.ShowDiaryPage({ diaryId: diary.id }))
                 } catch (error: any) {
                   console.error(error)

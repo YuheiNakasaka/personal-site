@@ -41,22 +41,24 @@ export const DiariesList = () => {
           </Box>
         )}
       </Box>
-      <Flex alignItems="center" justifyContent="center">
-        <Box mt="5rem">
-          <Flex>
-            <Box mr="1rem">
-              <button disabled={page === 0} onClick={goToPreviousPage}>
-                Previous
-              </button>
-            </Box>
-            <Box>
-              <button disabled={!hasMore} onClick={goToNextPage}>
-                Next
-              </button>
-            </Box>
-          </Flex>
-        </Box>
-      </Flex>
+      {diaries.length !== 0 && (
+        <Flex alignItems="center" justifyContent="center">
+          <Box mt="5rem">
+            <Flex>
+              <Box mr="1rem">
+                <button disabled={page === 0} onClick={goToPreviousPage}>
+                  Previous
+                </button>
+              </Box>
+              <Box>
+                <button disabled={!hasMore} onClick={goToNextPage}>
+                  Next
+                </button>
+              </Box>
+            </Flex>
+          </Box>
+        </Flex>
+      )}
     </Box>
   )
 }
