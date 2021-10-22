@@ -1,5 +1,12 @@
 import { Suspense } from "react"
-import { Head, BlitzPage, GetStaticProps, InferGetStaticPropsType, invoke } from "blitz"
+import {
+  Head,
+  BlitzPage,
+  GetStaticProps,
+  GetStaticPaths,
+  InferGetStaticPropsType,
+  invoke,
+} from "blitz"
 import { Flex, Box, IconButton, UnorderedList, ListItem, Link } from "@chakra-ui/react"
 import { ChevronLeftIcon } from "@chakra-ui/icons"
 import Layout from "app/core/layouts/Layout"
@@ -16,7 +23,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     skip: ITEMS_PER_PAGE * page,
     take: ITEMS_PER_PAGE,
   })
-
   return {
     props: {
       diaries,
@@ -27,7 +33,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-const DiariesPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { count } = await invoke(getDiaries, {})
+  const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i)
+  const paths = range(1, Math.ceil(count / ITEMS_PER_PAGE)).map((number, index) => ({
+    params: {
+      page: `${index}`,
+    },
+  }))
+  return {
+    paths,
+    fallback: true,
+  }
+}
+
+const DiariesPagingPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { diaries, count } = props
   const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i)
   return (
@@ -99,7 +119,7 @@ const DiariesPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStaticP
   )
 }
 
-DiariesPage.authenticate = false
-DiariesPage.getLayout = (page) => <Layout>{page}</Layout>
+DiariesPagingPage.authenticate = false
+DiariesPagingPage.getLayout = (page) => <Layout>{page}</Layout>
 
-export default DiariesPage
+export default DiariesPagingPage
