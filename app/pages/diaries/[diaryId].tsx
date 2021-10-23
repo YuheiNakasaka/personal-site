@@ -1,58 +1,74 @@
 import { Suspense } from "react"
-import { Head, Link, useRouter, useQuery, useParam, BlitzPage, useMutation, Routes } from "blitz"
+import {
+  Head,
+  Link,
+  BlitzPage,
+  GetStaticProps,
+  GetStaticPaths,
+  InferGetStaticPropsType,
+  invoke,
+} from "blitz"
 import { Flex, Box, IconButton, Text } from "@chakra-ui/react"
 import { ChevronLeftIcon } from "@chakra-ui/icons"
-import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import Layout from "app/core/layouts/Layout"
 import getDiary from "app/diaries/queries/getDiary"
-import deleteDiary from "app/diaries/mutations/deleteDiary"
 import { DiaryContent } from "app/diaries/components/DiaryContent"
+import getDiaries from "app/diaries/queries/getDiaries"
 
-export const Diary = () => {
-  const router = useRouter()
-  const user = useCurrentUser()
-  const diaryId = useParam("diaryId", "number")
-  const [diary] = useQuery(getDiary, { id: diaryId })
-  const [deleteDiaryMutation] = useMutation(deleteDiary)
-
-  return (
-    <>
-      <Head>
-        <title>{diary.createdAt.toDateString()}</title>
-      </Head>
-
-      <Box>
-        <Text fontSize="2xl">{diary.createdAt.toDateString()}</Text>
-        <Box mt="2rem" mb="2rem">
-          <DiaryContent text={diary.text}></DiaryContent>
-        </Box>
-
-        {user != null && (
-          <Box>
-            <Link href={Routes.EditDiaryPage({ diaryId: diary.id })}>
-              <a>Edit</a>
-            </Link>
-
-            <button
-              type="button"
-              onClick={async () => {
-                if (window.confirm("This will be deleted")) {
-                  await deleteDiaryMutation({ id: diary.id })
-                  router.push(Routes.DiariesPage())
-                }
-              }}
-              style={{ marginLeft: "0.5rem" }}
-            >
-              Delete
-            </button>
-          </Box>
-        )}
-      </Box>
-    </>
-  )
+type StaticPathParamsPath = {
+  diaryId: string
 }
 
-const ShowDiaryPage: BlitzPage = () => {
+type StaticPathParams = {
+  params: StaticPathParamsPath
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const id = Number(context.params?.diaryId) || 0
+  const diary = await invoke(getDiary, {
+    id: id,
+  })
+  return {
+    props: {
+      diary,
+    },
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const { diaries } = await invoke(getDiaries, {
+    orderBy: { id: "desc" },
+    skip: 0,
+    take: 1,
+  })
+  const paths: StaticPathParams[] = []
+  if (diaries !== undefined && diaries.length == 1) {
+    const diary = diaries[0]
+    const lastId = diary?.id
+    if (lastId != undefined) {
+      for (let i = 0; i < lastId; i++) {
+        await invoke(getDiary, { id: i })
+          .then((_) => {
+            paths.push({
+              params: {
+                diaryId: `${i}`,
+              },
+            })
+          })
+          .catch((_) => {
+            console.log(`Not found record: ${i}`)
+          })
+      }
+    }
+  }
+  return {
+    paths,
+    fallback: true,
+  }
+}
+
+const ShowDiaryPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { diary } = props
   return (
     <Flex bg="white" w="100vw">
       <Flex as="header" position="fixed" top={0} width="full" py={4} px={8}>
@@ -72,7 +88,19 @@ const ShowDiaryPage: BlitzPage = () => {
           }}
         >
           <Suspense fallback={<div>Loading...</div>}>
-            <Diary />
+            {diary != undefined && (
+              <>
+                <Head>
+                  <title>{diary.createdAt.toDateString()}</title>
+                </Head>
+                <Box>
+                  <Text fontSize="2xl">{diary.createdAt.toDateString()}</Text>
+                  <Box mt="2rem" mb="2rem">
+                    <DiaryContent text={diary.text}></DiaryContent>
+                  </Box>
+                </Box>
+              </>
+            )}
           </Suspense>
         </Box>
       </Box>
