@@ -1,8 +1,33 @@
-import { Box } from "@chakra-ui/react"
-import ReactMarkdown from "react-markdown"
-import { CodeComponent, ReactMarkdownNames } from "react-markdown/src/ast-to-react"
+import { Box, Link } from "@chakra-ui/react"
+import ReactMarkdown, { Components } from "react-markdown"
+import { CodeComponent, ReactMarkdownNames } from "react-markdown/lib/ast-to-react"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { dark } from "react-syntax-highlighter/dist/cjs/styles/prism"
+import { Tweet } from "react-twitter-widgets"
+
+const tweetComponent = (): Components => ({
+  a: ({ children, href }) => {
+    const getTweetStatus = (href: string) => {
+      const { pathname } = new URL(href)
+      const [, , , status] = pathname.split("/")
+      return status
+    }
+    const isTweet = (href: string) => {
+      return href.startsWith("https://twitter.com/") && getTweetStatus(href)
+    }
+    if (href && isTweet(href)) {
+      if (children[0] === href) {
+        const m = href.match(/status\/(\d+)?/)
+        if (m && m[1]) {
+          const tweetId = m[1]
+          return <Tweet tweetId={tweetId} />
+        }
+      }
+    }
+
+    return <Link href={href}>{children}</Link>
+  },
+})
 
 const CodeBlock: CodeComponent | ReactMarkdownNames = ({
   inline,
@@ -41,7 +66,7 @@ export const DiaryContent = (props: DiaryContentProps) => {
       <ReactMarkdown
         // eslint-disable-next-line react/no-children-prop
         children={props.text}
-        components={components}
+        components={{ ...tweetComponent(), ...components }}
       />
       <style>{`
                 h1 {

@@ -15,6 +15,8 @@ import getDiary from "app/diaries/queries/getDiary"
 import { DiaryContent } from "app/diaries/components/DiaryContent"
 import getDiaries from "app/diaries/queries/getDiaries"
 
+const ITEMS_PER_PAGE = 100
+
 type StaticPathParamsPath = {
   diaryId: string
 }
@@ -36,30 +38,27 @@ export const getStaticProps: GetStaticProps = async (context) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { diaries } = await invoke(getDiaries, {
-    orderBy: { id: "desc" },
-    skip: 0,
-    take: 1,
-  })
+  let skip = 0
   const paths: StaticPathParams[] = []
-  if (diaries !== undefined && diaries.length == 1) {
-    const diary = diaries[0]
-    const lastId = diary?.id
-    if (lastId != undefined) {
-      for (let i = 0; i < lastId; i++) {
-        await invoke(getDiary, { id: i })
-          .then((_) => {
-            paths.push({
-              params: {
-                diaryId: `${i}`,
-              },
-            })
-          })
-          .catch((_) => {
-            console.log(`Not found record: ${i}`)
-          })
-      }
+  while (true) {
+    const { diaries } = await invoke(getDiaries, {
+      orderBy: { id: "desc" },
+      skip: ITEMS_PER_PAGE * skip,
+      take: ITEMS_PER_PAGE,
+    })
+    if (diaries == undefined || diaries.length === 0) {
+      break
     }
+    if (diaries !== undefined) {
+      diaries.map((diary) => {
+        paths.push({
+          params: {
+            diaryId: `${diary.id}`,
+          },
+        })
+      })
+    }
+    skip += 1
   }
   return {
     paths,
