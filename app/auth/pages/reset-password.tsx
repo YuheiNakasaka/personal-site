@@ -53,6 +53,7 @@ const ResetPasswordPage: BlitzPage = () => {
   )
 }
 
+ResetPasswordPage.authenticate = true
 ResetPasswordPage.redirectAuthenticatedTo = "/"
 ResetPasswordPage.getLayout = (page) => <Layout title="Reset Your Password">{page}</Layout>
 

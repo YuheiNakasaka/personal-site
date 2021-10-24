@@ -6,7 +6,7 @@ interface DiaryTitleProps {
 }
 
 export const DiaryTitle = ({ date, fontSize = "2xl" }: DiaryTitleProps) => {
-  return <Text fontSize={fontSize}>{date.toDateString()}</Text>
+  return <Text fontSize={fontSize}>■ {date.toDateString()}</Text>
 }
 
 export default DiaryTitle

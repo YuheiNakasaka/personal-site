@@ -29,6 +29,11 @@ const Home: BlitzPage = () => {
                   </Link>
                 </ListItem>
                 <ListItem>
+                  <Link href="https://razokulover.hateblo.jp/" fontSize="2xl" isExternal>
+                    Blog <ExternalLinkIcon mx="0.1rem" />
+                  </Link>
+                </ListItem>
+                <ListItem>
                   <Link href="https://twitter.com/razokulover" fontSize="2xl" isExternal>
                     Twitter <ExternalLinkIcon mx="0.1rem" />
                   </Link>
