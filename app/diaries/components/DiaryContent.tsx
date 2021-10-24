@@ -1,72 +1,19 @@
-import { Box, Link } from "@chakra-ui/react"
-import ReactMarkdown, { Components } from "react-markdown"
-import { CodeComponent, ReactMarkdownNames } from "react-markdown/lib/ast-to-react"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { dark } from "react-syntax-highlighter/dist/cjs/styles/prism"
-import { Tweet } from "react-twitter-widgets"
-
-const tweetComponent = (): Components => ({
-  a: ({ children, href }) => {
-    const getTweetStatus = (href: string) => {
-      const { pathname } = new URL(href)
-      const [, , , status] = pathname.split("/")
-      return status
-    }
-    const isTweet = (href: string) => {
-      return href.startsWith("https://twitter.com/") && getTweetStatus(href)
-    }
-    if (href && isTweet(href)) {
-      if (children[0] === href) {
-        const m = href.match(/status\/(\d+)?/)
-        if (m && m[1]) {
-          const tweetId = m[1]
-          return <Tweet tweetId={tweetId} />
-        }
-      }
-    }
-
-    return <Link href={href}>{children}</Link>
-  },
-})
-
-const CodeBlock: CodeComponent | ReactMarkdownNames = ({
-  inline,
-  className,
-  children,
-  ...props
-}) => {
-  const match = /language-(\w+)/.exec(className || "")
-  return !inline && match ? (
-    /* @ts-ignore */
-    <SyntaxHighlighter
-      style={dark}
-      language={match[1]}
-      {...props}
-      // eslint-disable-next-line react/no-children-prop
-      children={String(children).replace(/\n$/, "")}
-      customStyle={{ background: "#292a33", border: "0", "box-shadow": "none" }}
-    />
-  ) : (
-    <pre className="not_language_specified">
-      <code {...props}>{children}</code>
-    </pre>
-  )
-}
+import { Box } from "@chakra-ui/react"
+import ReactMarkdown from "react-markdown"
+import SyntaxHighlightComponent from "./markdowns/SyntaxHighlight"
+import TweetComponent from "./markdowns/TweetComponent"
 
 type DiaryContentProps = {
   text: string
 }
 
 export const DiaryContent = (props: DiaryContentProps) => {
-  const components = {
-    code: CodeBlock,
-  }
   return (
     <Box>
       <ReactMarkdown
         // eslint-disable-next-line react/no-children-prop
         children={props.text}
-        components={{ ...tweetComponent(), ...components }}
+        components={{ ...TweetComponent(), code: SyntaxHighlightComponent }}
       />
       <style>{`
                 h1 {
@@ -147,3 +94,5 @@ export const DiaryContent = (props: DiaryContentProps) => {
     </Box>
   )
 }
+
+export default DiaryContent

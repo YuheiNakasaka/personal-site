@@ -10,3 +10,5 @@ export function DiaryForm<S extends z.ZodType<any, any>>(props: FormProps<S>) {
     </Form>
   )
 }
+
+export default DiaryForm

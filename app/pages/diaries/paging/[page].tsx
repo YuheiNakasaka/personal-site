@@ -12,7 +12,6 @@ import { ChevronLeftIcon } from "@chakra-ui/icons"
 import Layout from "app/core/layouts/Layout"
 import getDiaries from "app/diaries/queries/getDiaries"
 import { DiaryTitle } from "app/diaries/components/DiaryTitle"
-import { DiaryContent } from "app/diaries/components/DiaryContent"
 
 const ITEMS_PER_PAGE = 100
 
@@ -84,13 +83,10 @@ const DiariesPagingPage: BlitzPage = (props: InferGetStaticPropsType<typeof getS
                     <Box>
                       <UnorderedList listStyleType="none" ml="0" pl="0">
                         {diaries.map((diary) => (
-                          <ListItem key={diary.id} mb="5rem">
+                          <ListItem key={diary.id} mb="1rem">
                             <Link href={`/diaries/${diary.id}`} display="inline-block">
                               <DiaryTitle date={diary.createdAt}></DiaryTitle>
                             </Link>
-                            <Box mt="1rem">
-                              <DiaryContent text={diary.text}></DiaryContent>
-                            </Box>
                           </ListItem>
                         ))}
                       </UnorderedList>
