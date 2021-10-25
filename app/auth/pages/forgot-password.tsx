@@ -1,9 +1,22 @@
-import { BlitzPage, useMutation } from "blitz"
+import { BlitzPage, useMutation, GetServerSideProps } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import { ForgotPassword } from "app/auth/validations"
 import forgotPassword from "app/auth/mutations/forgotPassword"
+import { isValidToken } from "../restriction"
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  if (!isValidToken(query.secret)) {
+    return {
+      props: {},
+      notFound: true,
+    }
+  }
+  return {
+    props: {},
+  }
+}
 
 const ForgotPasswordPage: BlitzPage = () => {
   const [forgotPasswordMutation, { isSuccess }] = useMutation(forgotPassword)
@@ -42,8 +55,7 @@ const ForgotPasswordPage: BlitzPage = () => {
   )
 }
 
-ForgotPasswordPage.authenticate = true
-ForgotPasswordPage.redirectAuthenticatedTo = "/"
+ForgotPasswordPage.authenticate = false
 ForgotPasswordPage.getLayout = (page) => <Layout title="Forgot Your Password?">{page}</Layout>
 
 export default ForgotPasswordPage

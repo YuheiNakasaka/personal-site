@@ -1,9 +1,22 @@
-import { BlitzPage, useRouterQuery, Link, useMutation, Routes } from "blitz"
+import { BlitzPage, useRouterQuery, Link, useMutation, Routes, GetServerSideProps } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { LabeledTextField } from "app/core/components/LabeledTextField"
 import { Form, FORM_ERROR } from "app/core/components/Form"
 import { ResetPassword } from "app/auth/validations"
 import resetPassword from "app/auth/mutations/resetPassword"
+import { isValidToken } from "../restriction"
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  if (!isValidToken(query.secret)) {
+    return {
+      props: {},
+      notFound: true,
+    }
+  }
+  return {
+    props: {},
+  }
+}
 
 const ResetPasswordPage: BlitzPage = () => {
   const query = useRouterQuery()
@@ -53,8 +66,7 @@ const ResetPasswordPage: BlitzPage = () => {
   )
 }
 
-ResetPasswordPage.authenticate = true
-ResetPasswordPage.redirectAuthenticatedTo = "/"
+ResetPasswordPage.authenticate = false
 ResetPasswordPage.getLayout = (page) => <Layout title="Reset Your Password">{page}</Layout>
 
 export default ResetPasswordPage

@@ -1,8 +1,21 @@
-import { useRouter, BlitzPage, Routes } from "blitz"
+import { useRouter, BlitzPage, Routes, GetServerSideProps } from "blitz"
 import { Flex, Link, Box, IconButton } from "@chakra-ui/react"
 import { ChevronLeftIcon } from "@chakra-ui/icons"
 import Layout from "app/core/layouts/Layout"
 import { SignupForm } from "app/auth/components/SignupForm"
+import { isValidToken } from "../restriction"
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  if (!isValidToken(query.secret)) {
+    return {
+      props: {},
+      notFound: true,
+    }
+  }
+  return {
+    props: {},
+  }
+}
 
 const SignupPage: BlitzPage = () => {
   const router = useRouter()
@@ -42,8 +55,7 @@ const SignupPage: BlitzPage = () => {
   )
 }
 
-SignupPage.authenticate = true
-SignupPage.redirectAuthenticatedTo = "/"
+SignupPage.authenticate = { redirectTo: "/" }
 SignupPage.getLayout = (page) => <Layout title="Sign Up">{page}</Layout>
 
 export default SignupPage

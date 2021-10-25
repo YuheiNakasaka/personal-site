@@ -1,8 +1,21 @@
-import { useRouter, BlitzPage, Routes } from "blitz"
+import { useRouter, BlitzPage, GetServerSideProps } from "blitz"
 import { Flex, Link, Box, IconButton } from "@chakra-ui/react"
 import { ChevronLeftIcon } from "@chakra-ui/icons"
 import Layout from "app/core/layouts/Layout"
 import { LoginForm } from "app/auth/components/LoginForm"
+import { isValidToken } from "../restriction"
+
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  if (!isValidToken(query.secret)) {
+    return {
+      props: {},
+      notFound: true,
+    }
+  }
+  return {
+    props: {},
+  }
+}
 
 const LoginPage: BlitzPage = () => {
   const router = useRouter()
@@ -47,7 +60,7 @@ const LoginPage: BlitzPage = () => {
   )
 }
 
-LoginPage.redirectAuthenticatedTo = "/"
+LoginPage.authenticate = false
 LoginPage.getLayout = (page) => <Layout title="Log In">{page}</Layout>
 
 export default LoginPage
