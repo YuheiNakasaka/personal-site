@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import { Head, BlitzPage, GetStaticProps, InferGetStaticPropsType, invoke } from "blitz"
-import { Flex, Box, IconButton, UnorderedList, ListItem, Link } from "@chakra-ui/react"
+import { Flex, Box, IconButton, UnorderedList, ListItem, Link, Center } from "@chakra-ui/react"
 import { ChevronLeftIcon } from "@chakra-ui/icons"
 import Layout from "app/core/layouts/Layout"
 import getDiaries from "app/diaries/queries/getDiaries"
@@ -33,6 +33,11 @@ const DiariesPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStaticP
     <>
       <Head>
         <title>Diaries</title>
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:creator" content="@razokulover" />
+        <meta property="og:url" content={`${process.env.BASE_URL}/diaries`} />
+        <meta property="og:title" content="Diaries" />
+        <meta property="og:image" content={`${process.env.BASE_URL}/razokulover-icon.png`} />
       </Head>
       <Flex bg="white" w="100vw">
         <Flex as="header" position="fixed" top={0} width="full" py={4} px={8}>
@@ -57,7 +62,7 @@ const DiariesPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStaticP
             }}
           >
             <Suspense fallback={<div>Loading...</div>}>
-              <Box>
+              <Center>
                 <Box>
                   {diaries !== undefined && diaries.length !== 0 && (
                     <Box>
@@ -86,7 +91,7 @@ const DiariesPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStaticP
                     </Box>
                   </Flex>
                 )}
-              </Box>
+              </Center>
             </Suspense>
           </Box>
         </Box>

@@ -14,6 +14,7 @@ import Layout from "app/core/layouts/Layout"
 import getDiary from "app/diaries/queries/getDiary"
 import { DiaryContent } from "app/diaries/components/DiaryContent"
 import getDiaries from "app/diaries/queries/getDiaries"
+import DiaryTitle from "app/diaries/components/DiaryTitle"
 
 const ITEMS_PER_PAGE = 100
 
@@ -91,9 +92,19 @@ const ShowDiaryPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStati
               <>
                 <Head>
                   <title>{diary.createdAt.toDateString()}</title>
+                  <meta name="description" content={diary.text}></meta>
+                  <meta name="twitter:card" content="summary" />
+                  <meta name="twitter:creator" content="@razokulover" />
+                  <meta property="og:url" content={`${process.env.BASE_URL}/diaries/${diary.id}`} />
+                  <meta property="og:title" content={diary.createdAt.toDateString()} />
+                  <meta property="og:description" content={diary.text} />
+                  <meta
+                    property="og:image"
+                    content={`${process.env.BASE_URL}/razokulover-icon.png`}
+                  />
                 </Head>
                 <Box>
-                  <Text fontSize="2xl">{diary.createdAt.toDateString()}</Text>
+                  <DiaryTitle date={diary.createdAt}></DiaryTitle>
                   <Box mt="2rem" mb="2rem">
                     <DiaryContent text={diary.text}></DiaryContent>
                   </Box>

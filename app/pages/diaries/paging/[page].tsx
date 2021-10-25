@@ -7,7 +7,7 @@ import {
   InferGetStaticPropsType,
   invoke,
 } from "blitz"
-import { Flex, Box, IconButton, UnorderedList, ListItem, Link } from "@chakra-ui/react"
+import { Flex, Box, IconButton, UnorderedList, ListItem, Link, Center } from "@chakra-ui/react"
 import { ChevronLeftIcon } from "@chakra-ui/icons"
 import Layout from "app/core/layouts/Layout"
 import getDiaries from "app/diaries/queries/getDiaries"
@@ -51,9 +51,6 @@ const DiariesPagingPage: BlitzPage = (props: InferGetStaticPropsType<typeof getS
   const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i)
   return (
     <>
-      <Head>
-        <title>Diaries</title>
-      </Head>
       <Flex bg="white" w="100vw">
         <Flex as="header" position="fixed" top={0} width="full" py={4} px={8}>
           <Box>
@@ -77,36 +74,49 @@ const DiariesPagingPage: BlitzPage = (props: InferGetStaticPropsType<typeof getS
             }}
           >
             <Suspense fallback={<div>Loading...</div>}>
-              <Box>
-                <Box>
-                  {diaries !== undefined && diaries?.length !== 0 && (
-                    <Box>
-                      <UnorderedList listStyleType="none" ml="0" pl="0">
-                        {diaries.map((diary) => (
-                          <ListItem key={diary.id} mb="1rem">
-                            <Link href={`/diaries/${diary.id}`} display="inline-block">
-                              <DiaryTitle date={diary.createdAt}></DiaryTitle>
-                            </Link>
-                          </ListItem>
-                        ))}
-                      </UnorderedList>
-                    </Box>
+              <>
+                <Head>
+                  <title>Diaries | paging</title>
+                  <meta name="twitter:card" content="summary" />
+                  <meta name="twitter:creator" content="@razokulover" />
+                  <meta property="og:url" content={`${process.env.BASE_URL}/diaries`} />
+                  <meta property="og:title" content="Diaries | paging" />
+                  <meta
+                    property="og:image"
+                    content={`${process.env.BASE_URL}/razokulover-icon.png`}
+                  />
+                </Head>
+                <Center>
+                  <Box>
+                    {diaries !== undefined && diaries?.length !== 0 && (
+                      <Box>
+                        <UnorderedList listStyleType="none" ml="0" pl="0">
+                          {diaries.map((diary) => (
+                            <ListItem key={diary.id} mb="1rem">
+                              <Link href={`/diaries/${diary.id}`} display="inline-block">
+                                <DiaryTitle date={diary.createdAt}></DiaryTitle>
+                              </Link>
+                            </ListItem>
+                          ))}
+                        </UnorderedList>
+                      </Box>
+                    )}
+                  </Box>
+                  {count > ITEMS_PER_PAGE && (
+                    <Flex alignItems="center" justifyContent="center">
+                      <Box mt="5rem">
+                        <Flex>
+                          {range(1, Math.ceil(count / ITEMS_PER_PAGE)).map((number, index) => (
+                            <Box key={index} mr="1rem">
+                              <Link href={`/diaries/paging/${index}`}>{number}</Link>
+                            </Box>
+                          ))}
+                        </Flex>
+                      </Box>
+                    </Flex>
                   )}
-                </Box>
-                {count > ITEMS_PER_PAGE && (
-                  <Flex alignItems="center" justifyContent="center">
-                    <Box mt="5rem">
-                      <Flex>
-                        {range(1, Math.ceil(count / ITEMS_PER_PAGE)).map((number, index) => (
-                          <Box key={index} mr="1rem">
-                            <Link href={`/diaries/paging/${index}`}>{number}</Link>
-                          </Box>
-                        ))}
-                      </Flex>
-                    </Box>
-                  </Flex>
-                )}
-              </Box>
+                </Center>
+              </>
             </Suspense>
           </Box>
         </Box>

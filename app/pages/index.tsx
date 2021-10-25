@@ -9,6 +9,11 @@ const Home: BlitzPage = () => {
     <>
       <Head>
         <title>razokulover</title>
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:creator" content="@razokulover" />
+        <meta property="og:url" content={`${process.env.BASE_URL}`} />
+        <meta property="og:title" content="razokulover" />
+        <meta property="og:image" content={`${process.env.BASE_URL}/razokulover-icon.png`} />
       </Head>
       <Flex bg="white" w="100vw" h="100vh" alignItems="center" justifyContent="center">
         <Box mx="auto">

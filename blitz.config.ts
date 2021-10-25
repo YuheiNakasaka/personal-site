@@ -15,5 +15,8 @@ const config: BlitzConfig = {
     return config
   },
   */
+  env: {
+    BASE_URL: "https://razokulover.com",
+  },
 }
 module.exports = config
