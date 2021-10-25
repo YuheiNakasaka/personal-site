@@ -35,7 +35,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     props: {
       diary,
     },
-    revalidate: 60,
   }
 }
 
