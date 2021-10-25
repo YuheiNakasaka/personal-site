@@ -16,6 +16,10 @@ export const DiaryContent = (props: DiaryContentProps) => {
         components={{ ...TweetComponent(), code: SyntaxHighlightComponent }}
       />
       <style>{`
+                body {
+                  font-family: -apple-system,"BlinkMacSystemFont","Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif,"Segoe UI Emoji";
+                  font-size: 1.05em;
+                }
                 h1 {
                   font-size: 2em;
                   font-weight: 700;
@@ -39,7 +43,7 @@ export const DiaryContent = (props: DiaryContentProps) => {
                 }
                 p {
                   font-size: 1em;
-                  margin-top: .3em;
+                  margin-top: .5em;
                 }
                 a {
                   color: #0f83fd;

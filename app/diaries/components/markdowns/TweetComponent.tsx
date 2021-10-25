@@ -12,6 +12,9 @@ export const TweetComponent = (): Components => ({
     const isTweet = (href: string) => {
       return href.startsWith("https://twitter.com/") && getTweetStatus(href)
     }
+    const isOwnSite = (href: string) => {
+      return href.startsWith("https://razokulover.com/")
+    }
     if (href && isTweet(href)) {
       if (children[0] === href) {
         const m = href.match(/status\/(\d+)?/)
@@ -20,9 +23,15 @@ export const TweetComponent = (): Components => ({
           return <Tweet tweetId={tweetId} />
         }
       }
+    } else if (href && isOwnSite(href)) {
+      return <a href={href}>{children}</a>
     }
 
-    return <Link href={href}>{children}</Link>
+    return (
+      <a href={href} target="_blank" rel="noreferrer">
+        {children}
+      </a>
+    )
   },
 })
 
