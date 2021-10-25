@@ -113,7 +113,7 @@ const EditDiaryPage: BlitzPage = () => {
   )
 }
 
-EditDiaryPage.authenticate = true
+EditDiaryPage.authenticate = { redirectTo: "/" }
 EditDiaryPage.getLayout = (page) => <Layout>{page}</Layout>
 
 export default EditDiaryPage

@@ -93,7 +93,7 @@ const NewDiaryPage: BlitzPage = () => {
   )
 }
 
-NewDiaryPage.authenticate = true
+NewDiaryPage.authenticate = { redirectTo: "/" }
 NewDiaryPage.getLayout = (page) => <Layout title={"Create New Diary"}>{page}</Layout>
 
 export default NewDiaryPage
