@@ -6,13 +6,28 @@ import {
   AuthorizationError,
   ErrorFallbackProps,
   useQueryErrorResetBoundary,
+  useRouter,
 } from "blitz"
 
 import { ChakraProvider } from "@chakra-ui/react"
 import Home from "."
+import * as gtag from "app/utils/gtag"
+import { useEffect } from "react"
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
+
+  const router = useRouter()
+  useEffect(() => {
+    router.events.on("routeChangeComplete", (url) => {
+      gtag.pageView(url)
+    })
+    return () => {
+      router.events.off("routeChangeComplete", (url) => {
+        gtag.pageView(url)
+      })
+    }
+  }, [router.events])
 
   return (
     <ChakraProvider>
