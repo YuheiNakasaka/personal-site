@@ -8,11 +8,12 @@ type DiaryContentProps = {
 }
 
 export const DiaryContent = (props: DiaryContentProps) => {
+  const parsedText = props.text.replace(/\n/gi, "\n &nbsp;\n\n")
   return (
     <Box>
       <ReactMarkdown
         // eslint-disable-next-line react/no-children-prop
-        children={props.text}
+        children={parsedText}
         components={{ ...TweetComponent(), code: SyntaxHighlightComponent }}
       />
       <style>{`
@@ -43,7 +44,6 @@ export const DiaryContent = (props: DiaryContentProps) => {
                 }
                 p {
                   font-size: 1em;
-                  margin-top: .5em;
                 }
                 a {
                   color: #0f83fd;
