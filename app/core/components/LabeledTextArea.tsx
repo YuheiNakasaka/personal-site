@@ -5,6 +5,7 @@ import {
   useContext,
   ChangeEvent,
   useState,
+  useEffect,
 } from "react"
 import { useField, UseFieldConfig } from "react-final-form"
 import { Box, Textarea, Input } from "@chakra-ui/react"
@@ -24,6 +25,12 @@ export interface LabeledTextAreaProps extends ComponentPropsWithoutRef<typeof Te
   fieldProps?: UseFieldConfig<string>
 }
 
+const onBackButtonEvent = (e) => {
+  e.preventDefault()
+  e.returnValue = "Do you want to go back ?"
+  return e.returnValue
+}
+
 export const LabeledTextArea = forwardRef<HTMLTextAreaElement, LabeledTextAreaProps>(
   ({ name, label, outerProps, fieldProps, labelProps, ...props }, ref) => {
     const context: FormContextType = useContext(FormContext)
@@ -41,6 +48,13 @@ export const LabeledTextArea = forwardRef<HTMLTextAreaElement, LabeledTextAreaPr
     })
 
     const normalizedError = Array.isArray(error) ? error.join(", ") : error || submitError
+
+    useEffect(() => {
+      window.addEventListener("beforeunload", onBackButtonEvent)
+      return () => {
+        window.removeEventListener("beforeunload", onBackButtonEvent)
+      }
+    }, [])
 
     return (
       <FormControl {...outerProps}>
