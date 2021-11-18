@@ -142,7 +142,7 @@ const AssetSearchMain = () => {
       <Head>
         <title>Crypto Asset Search</title>
       </Head>
-      <Flex bg="white" w="100vw">
+      <Flex bg="white" w="100vw" minH="100vh">
         <Box mx="auto" pt={"1rem"} pb={"2.5rem"}>
           <Flex as="header" width="full" py={4} px={8}>
             <AssetSearchForm
@@ -208,6 +208,20 @@ const AssetSearchMain = () => {
           </Box>
         </Box>
       </Flex>
+
+      <Box textAlign="center">
+        <Text fontSize="sm">
+          Crypto Asset Search © 2021 |{" "}
+          <Link
+            href="https://etherscan.io/address/0xfB9AaE55f46F03a2FF53882b432Fbf52Fc6B668F"
+            target="_blank"
+            color="#FF5252"
+            outline="none"
+          >
+            Donate❤︎
+          </Link>
+        </Text>
+      </Box>
     </>
   )
 }
