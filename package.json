@@ -31,6 +31,7 @@
     "@emotion/styled": "11.0.0",
     "@prisma/client": "3.2.1",
     "blitz": "0.41.1",
+    "ethers": "5.5.1",
     "final-form": "4.20.4",
     "framer-motion": "3.2.0",
     "react": "alpha",
@@ -40,6 +41,7 @@
     "react-markdown": "6.0.3",
     "react-syntax-highlighter": "15.4.4",
     "react-twitter-widgets": "1.10.0",
+    "use-http": "1.0.26",
     "zod": "3.10.1"
   },
   "devDependencies": {
