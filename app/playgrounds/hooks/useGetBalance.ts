@@ -6,7 +6,7 @@ const mockObject: GetBalanceResponse = {
 
 export const useGetBalance = () => {
   return async (address: string, chain: string) => {
-    if (address !== "") {
+    if (address && address !== "") {
       console.log("=== Requesting: useGetBalance ===")
       const response = await fetch(
         `/api/playgrounds/get_balance?address=${address}&chain=${chain}`,

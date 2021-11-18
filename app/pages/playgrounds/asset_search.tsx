@@ -137,7 +137,6 @@ const AssetSearchMain = () => {
   const searchNft = useGetNFTs()
   const resolveENS = useResolveENS()
   const getBalance = useGetBalance()
-
   return (
     <>
       <Head>
@@ -152,16 +151,18 @@ const AssetSearchMain = () => {
                 context.setLoading(true)
 
                 const { address } = await resolveENS(context.text)
-                console.log(address)
+                if (`${address}`.startsWith("0x")) {
+                  context.setAddress(address)
 
-                context.setAddress(address)
+                  const account = await getBalance(address, context.chain)
+                  context.setBalance(account.balance)
 
-                const account = await getBalance(address, context.chain)
-                context.setBalance(account.balance)
-
-                const nfts = await searchNft(address, context.chain)
-                context.setTotalNFT(nfts.total)
-                context.setNFTItems(nfts.result.slice())
+                  const nfts = await searchNft(address, context.chain)
+                  context.setTotalNFT(nfts.total)
+                  context.setNFTItems(nfts.result.slice())
+                } else {
+                  console.error(`The address is not found.`)
+                }
 
                 context.setLoading(false)
               }}

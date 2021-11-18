@@ -27,7 +27,7 @@ const mockObject: GetNFTResponse = {
 
 export const useGetNFTs = () => {
   return async (address: string, chain: string) => {
-    if (address !== "") {
+    if (address && address !== "") {
       console.log("=== Requesting: useGetNFTs ===")
       const response = await fetch(`/api/playgrounds/get_nfts?address=${address}&chain=${chain}`, {
         method: "GET",
