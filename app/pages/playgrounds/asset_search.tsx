@@ -141,6 +141,18 @@ const AssetSearchMain = () => {
     <>
       <Head>
         <title>Crypto Asset Search</title>
+        <meta
+          name="description"
+          content="Crypto Asset Search allows you to search balances and nfts."
+        ></meta>
+        <meta name="twitter:card" content="summary" />
+        <meta property="og:url" content="https://razokulover.com/playgrounds/asset_search" />
+        <meta property="og:title" content="Crypto Asset Search" />
+        <meta
+          property="og:description"
+          content="Crypto Asset Search allows you to search balances and nfts."
+        />
+        <meta property="og:image" content={`${process.env.BASE_URL}/razokulover-icon.png`} />
       </Head>
       <Flex bg="white" w="100vw" minH="100vh">
         <Box mx="auto" pt={"1rem"} pb={"2.5rem"}>
