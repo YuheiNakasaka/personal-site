@@ -11,7 +11,7 @@ import {
 
 import { ChakraProvider } from "@chakra-ui/react"
 import Home from "."
-import * as gtag from "app/utils/gtag"
+import * as gtag from "app/core/utils/gtag"
 import { useEffect } from "react"
 
 export default function App({ Component, pageProps }: AppProps) {

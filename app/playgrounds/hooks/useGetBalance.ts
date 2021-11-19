@@ -1,21 +1,23 @@
 import { GetBalanceResponse } from "../models/balance"
 
-const mockObject: GetBalanceResponse = {
-  balance: "188624396095347717",
+export type UseGetBalanceType = {
+  balance: number
 }
 
 export const useGetBalance = () => {
-  return async (address: string, chain: string) => {
+  return async (address: string, chain: string): Promise<UseGetBalanceType> => {
     if (address && address !== "") {
       console.log("=== Requesting: useGetBalance ===")
-      const response = await fetch(
+      const response: GetBalanceResponse = await fetch(
         `/api/playgrounds/get_balance?address=${address}&chain=${chain}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         }
       ).then((res) => res.json())
-      return response
+      return {
+        balance: parseFloat(response.balance),
+      }
     } else {
       return {
         balance: 0.0,
