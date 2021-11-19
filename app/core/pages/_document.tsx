@@ -1,5 +1,5 @@
 import { Document, Html, DocumentHead, Main, BlitzScript /*DocumentContext*/ } from "blitz"
-import * as gtag from "app/utils/gtag"
+import * as gtag from "app/core/utils/gtag"
 
 class MyDocument extends Document {
   // Only uncomment if you need to customize this behaviour

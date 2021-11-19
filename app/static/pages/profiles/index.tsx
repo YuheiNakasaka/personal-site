@@ -243,6 +243,15 @@ const ProfilesPage: BlitzPage = () => {
                     Fleet Art Editor is an application for creating FleetArt using emojis and texts.
                   </Text>
                 </ListItem>
+                <ListItem fontSize="xl">
+                  <Link href="https://razokulover.com/playgrounds/asset_search" isExternal>
+                    Crypto Asset Search
+                  </Link>
+                  <Text fontSize="sm">
+                    Crypto Asset Search allows you to search for crypto assets and get detailed
+                    information about them.
+                  </Text>
+                </ListItem>
               </UnorderedList>
             </Box>
           </Box>

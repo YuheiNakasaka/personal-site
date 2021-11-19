@@ -1,5 +1,7 @@
 # Personal Site
 
+- [https://razokulover.com/](https://razokulover.com/)
+
 ## Usage
 
 ### Setup
@@ -32,17 +34,3 @@ If it needs to use docker image for Cloud Run, run below.
 docker build . -t personal-site-app
 docker run --env-file=.env.local -p 3000:3000 personal-site-app
 ```
-
-## TODO
-
-- [x] TOP ページ(静的ページ)
-- [x] 記事ページ(静的ページ)
-  - [x] 記事一覧
-  - [x] 記事詳細
-- [x] 記事管理ページ(動的ページ)
-  - [x] 作成
-    - [x] 画像投稿
-    - [x] フォーム編集中にタブ消そうとするとアラート
-  - [x] 更新
-  - [x] 削除
-- [x] プロフィールページ(静的ページ)
