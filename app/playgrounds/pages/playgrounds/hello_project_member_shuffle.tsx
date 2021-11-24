@@ -128,7 +128,12 @@ const HelloProjectMemberShufflePage: BlitzPage = () => {
   return (
     <>
       <Head>
-        <title>HelloProjectMemberShuffle</title>
+        <title>ハロメン名前シャッフル</title>
+        <meta name="twitter:card" content="summary" />
+        <meta property="og:url" content="https://razokulover.com/playgrounds/asset_search" />
+        <meta property="og:title" content="ハロメン名前シャッフル" />
+        <meta property="og:description" content="ハロメンの名前をシャッフルできます。" />
+        <meta property="og:image" content={`${process.env.BASE_URL}/razokulover-icon.png`} />
       </Head>
       <Flex alignItems="center" justifyContent="center" w="100vw" minH="100vh">
         <Box textAlign="center">
