@@ -34,8 +34,8 @@ const Home: BlitzPage = () => {
                   </Link>
                 </ListItem>
                 <ListItem>
-                  <Link href="https://razokulover.hateblo.jp/" fontSize="2xl" isExternal>
-                    Blog <ExternalLinkIcon mx="0.1rem" />
+                  <Link href="https://scrapbox.io/razokulover-tech-memo/" fontSize="2xl" isExternal>
+                    Scrap <ExternalLinkIcon mx="0.1rem" />
                   </Link>
                 </ListItem>
                 <ListItem>
@@ -51,6 +51,11 @@ const Home: BlitzPage = () => {
                 <ListItem>
                   <Link href="https://zenn.dev/razokulover/" fontSize="2xl" isExternal>
                     Zenn <ExternalLinkIcon mx="0.1rem" />
+                  </Link>
+                </ListItem>
+                <ListItem>
+                  <Link href="https://razokulover.hateblo.jp/" fontSize="2xl" isExternal>
+                    Blog <ExternalLinkIcon mx="0.1rem" />
                   </Link>
                 </ListItem>
               </UnorderedList>
