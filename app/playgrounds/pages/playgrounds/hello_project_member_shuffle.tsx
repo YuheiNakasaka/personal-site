@@ -77,7 +77,7 @@ const matchMemberName = (randChars: String[]) => {
   let ret: String = ""
   const chars = randChars.sort()
   for (let i = 0; i < members.length; i++) {
-    const member = members.at(i)
+    const member = members[i]
     if (JSON.stringify(member?.split("").sort()) === JSON.stringify(chars)) {
       ret = member!
       break
