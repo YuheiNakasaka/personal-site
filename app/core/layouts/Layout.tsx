@@ -18,7 +18,13 @@ const Layout = ({ title, children }: LayoutProps) => {
                 body {
                   font-family: -apple-system,"BlinkMacSystemFont","Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif,"Segoe UI Emoji";
                   font-size: 1.05em;
-                }`}
+                }
+                ul {
+                  margin: 0 !important;
+                  padding: 0;
+                  list-style-type: none !important;
+                }
+          `}
         </style>
       </Head>
 

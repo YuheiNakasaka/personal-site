@@ -70,49 +70,40 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const ShowDiaryPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { diary } = props
   return (
-    <Flex bg="white" w="100vw">
-      <Flex as="header" position="fixed" top={0} width="full" py={4} px={8}>
+    <Flex bg="white" w="100vw" justifyContent="center">
+      <Flex as="header" position="fixed" top="0" width="full" py="1rem" px="1.5rem">
         <Box>
           <Link href="/diaries">
             <IconButton aria-label="back" color="black" rounded="full" icon={<ChevronLeftIcon />} />
           </Link>
         </Box>
       </Flex>
-      <Box mx="auto" pt={"6rem"} pb={"2.5rem"}>
-        <Box
-          w={{
-            base: "90vw",
-            sm: "90vw",
-            md: "45rem",
-            lg: "50rem",
-          }}
-        >
-          <Suspense fallback={<div>Loading...</div>}>
-            {diary != undefined && (
-              <>
-                <Head>
-                  <title>{diary.createdAt.toDateString()}</title>
-                  <meta name="description" content={diary.text}></meta>
-                  <meta name="twitter:card" content="summary" />
-                  <meta name="twitter:creator" content="@razokulover" />
-                  <meta property="og:url" content={`${process.env.BASE_URL}/diaries/${diary.id}`} />
-                  <meta property="og:title" content={diary.createdAt.toDateString()} />
-                  <meta property="og:description" content={diary.text} />
-                  <meta
-                    property="og:image"
-                    content={`${process.env.BASE_URL}/razokulover-icon.png`}
-                  />
-                </Head>
-                <Box>
-                  <DiaryTitle date={diary.createdAt}></DiaryTitle>
-                  <Box mt="2rem" mb="2rem">
-                    <DiaryContent text={diary.text}></DiaryContent>
-                  </Box>
+      <Box maxW="40rem" pt="6rem" pb="2.5rem" px="1rem">
+        <Suspense fallback={<div>Loading...</div>}>
+          {diary != undefined && (
+            <>
+              <Head>
+                <title>{diary.createdAt.toDateString()}</title>
+                <meta name="description" content={diary.text}></meta>
+                <meta name="twitter:card" content="summary" />
+                <meta name="twitter:creator" content="@razokulover" />
+                <meta property="og:url" content={`${process.env.BASE_URL}/diaries/${diary.id}`} />
+                <meta property="og:title" content={diary.createdAt.toDateString()} />
+                <meta property="og:description" content={diary.text} />
+                <meta
+                  property="og:image"
+                  content={`${process.env.BASE_URL}/razokulover-icon.png`}
+                />
+              </Head>
+              <Box>
+                <DiaryTitle date={diary.createdAt}></DiaryTitle>
+                <Box mt="2rem" mb="2rem">
+                  <DiaryContent text={diary.text}></DiaryContent>
                 </Box>
-              </>
-            )}
-          </Suspense>
-        </Box>
+              </Box>
+            </>
+          )}
+        </Suspense>
       </Box>
     </Flex>
   )

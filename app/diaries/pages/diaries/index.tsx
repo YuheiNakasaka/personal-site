@@ -39,62 +39,40 @@ const DiariesPage: BlitzPage = (props: InferGetStaticPropsType<typeof getStaticP
         <meta property="og:title" content="Diaries" />
         <meta property="og:image" content={`${process.env.BASE_URL}/razokulover-icon.png`} />
       </Head>
-      <Flex bg="white" w="100vw">
-        <Flex as="header" position="fixed" top={0} width="full" py={4} px={8}>
-          <Box>
-            <Link href="/">
-              <IconButton
-                aria-label="back"
-                color="black"
-                rounded="full"
-                icon={<ChevronLeftIcon />}
-              />
-            </Link>
-          </Box>
-        </Flex>
-        <Box mx="auto" pt={"6rem"} pb={"2.5rem"}>
-          <Box
-            w={{
-              base: "90vw",
-              sm: "90vw",
-              md: "45rem",
-              lg: "50rem",
-            }}
-          >
-            <Suspense fallback={<div>Loading...</div>}>
-              <Center>
-                <Box>
-                  {diaries !== undefined && diaries.length !== 0 && (
-                    <Box>
-                      <UnorderedList listStyleType="none" ml="0" pl="0">
-                        {diaries.map((diary) => (
-                          <ListItem key={diary.id} mb="1rem">
-                            <Link href={`/diaries/${diary.id}`} display="inline-block">
-                              <DiaryTitle date={diary.createdAt}></DiaryTitle>
-                            </Link>
-                          </ListItem>
-                        ))}
-                      </UnorderedList>
-                    </Box>
-                  )}
-                </Box>
-                {count > ITEMS_PER_PAGE && (
-                  <Flex alignItems="center" justifyContent="center">
-                    <Box mt="5rem">
-                      <Flex>
-                        {range(1, Math.ceil(count / ITEMS_PER_PAGE)).map((number, index) => (
-                          <Box key={index} mr="1rem">
-                            <Link href={`/diaries/paging/${index}`}>{number}</Link>
-                          </Box>
-                        ))}
-                      </Flex>
-                    </Box>
-                  </Flex>
-                )}
-              </Center>
-            </Suspense>
-          </Box>
+      <Flex as="header" position="fixed" top={0} width="full" py="1rem" px="1.5rem">
+        <Box>
+          <Link href="/">
+            <IconButton aria-label="back" color="black" rounded="full" icon={<ChevronLeftIcon />} />
+          </Link>
         </Box>
+      </Flex>
+      <Flex bg="white" w="100vw" justifyContent="center" my="4rem">
+        <Suspense fallback={<div>Loading...</div>}>
+          {diaries !== undefined && diaries.length !== 0 && (
+            <UnorderedList>
+              {diaries.map((diary) => (
+                <ListItem key={diary.id} mb="1rem">
+                  <Link href={`/diaries/${diary.id}`} display="inline-block">
+                    <DiaryTitle date={diary.createdAt}></DiaryTitle>
+                  </Link>
+                </ListItem>
+              ))}
+            </UnorderedList>
+          )}
+          {count > ITEMS_PER_PAGE && (
+            <Flex alignItems="center" justifyContent="center">
+              <Box mt="5rem">
+                <Flex>
+                  {range(1, Math.ceil(count / ITEMS_PER_PAGE)).map((number, index) => (
+                    <Box key={index} mr="1rem">
+                      <Link href={`/diaries/paging/${index}`}>{number}</Link>
+                    </Box>
+                  ))}
+                </Flex>
+              </Box>
+            </Flex>
+          )}
+        </Suspense>
       </Flex>
     </>
   )
