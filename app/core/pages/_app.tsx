@@ -13,15 +13,26 @@ import { ChakraProvider } from "@chakra-ui/react"
 import Home from "."
 import * as gtag from "app/core/utils/gtag"
 import { useEffect } from "react"
+import nprogress from "nprogress"
+import "nprogress/nprogress.css"
+
+nprogress.configure({ showSpinner: false, speed: 400, minimum: 0.25 })
 
 export default function App({ Component, pageProps }: AppProps) {
+  if (process.browser) {
+    nprogress.start()
+  }
+
   const getLayout = Component.getLayout || ((page) => page)
 
   const router = useRouter()
   useEffect(() => {
     router.events.on("routeChangeComplete", (url) => {
+      console.log(url)
+      nprogress.done()
       gtag.pageView(url)
     })
+
     return () => {
       router.events.off("routeChangeComplete", (url) => {
         gtag.pageView(url)

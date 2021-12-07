@@ -1,23 +1,13 @@
 import { Head, BlitzPage, useRouter, Link } from "blitz"
-import Layout from "app/core/layouts/Layout"
-import { ChainId, DAppProvider, useEthers, Config } from "@usedapp/core"
-import { Box, Flex, Text, Spinner, chakra } from "@chakra-ui/react"
-import { Button } from "@chakra-ui/button"
+import Layout from "app/playgrounds/layouts/twitter_eth/Layout"
+import { useEthers } from "@usedapp/core"
+import { Box, Flex, Text, Spinner } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import { Tweet } from "app/playgrounds/models/tweet"
+import { User } from "app/playgrounds/models/twitter_eth/user"
 import { utils, Contract } from "ethers"
 import ABI from "app/playgrounds/resources/twitter-abi.json"
-import dayjs from "dayjs"
-import relativeTime from "dayjs/plugin/relativeTime"
 import { SideBar, HeaderTabType } from "app/playgrounds/components/twitter_eth/Sidebar"
 import { FlatButton } from "app/playgrounds/components/twitter_eth/FlatButton"
-dayjs.extend(relativeTime)
-
-const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-
-interface User {
-  id: string
-}
 
 const MainContent = () => {
   const router = useRouter()
@@ -29,7 +19,11 @@ const MainContent = () => {
   const getFollowings = async (address: string): Promise<User[]> => {
     if (library !== undefined) {
       const inteface = new utils.Interface(ABI.abi)
-      const contract = new Contract(CONTRACT_ADDRESS, inteface, library?.getSigner())
+      const contract = new Contract(
+        `${process.env.TWITTER_ETH_CONTRACT_ID}`,
+        inteface,
+        library?.getSigner()
+      )
       const followings = await contract.getFollowings(address)
       return followings
     } else {
@@ -115,25 +109,13 @@ const MainContent = () => {
   )
 }
 
-const config: Config = {
-  readOnlyChainId: ChainId.Hardhat,
-  readOnlyUrls: {
-    [ChainId.Hardhat]: "http://localhost:8545",
-  },
-  multicallAddresses: {
-    [ChainId.Hardhat]: "http://localhost:8545",
-  },
-}
-
 const TwitterEthFollowingsPage: BlitzPage = () => {
   return (
     <>
       <Head>
         <title>Twitter ETH</title>
       </Head>
-      <DAppProvider config={config}>
-        <MainContent />
-      </DAppProvider>
+      <MainContent />
     </>
   )
 }

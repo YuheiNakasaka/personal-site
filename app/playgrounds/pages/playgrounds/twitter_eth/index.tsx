@@ -1,20 +1,14 @@
-import { Head, BlitzPage, Link } from "blitz"
-import Layout from "app/core/layouts/Layout"
-import { ChainId, DAppProvider, useEthers, Config } from "@usedapp/core"
+import { Head, BlitzPage } from "blitz"
+import Layout from "app/playgrounds/layouts/twitter_eth/Layout"
+import { useEthers } from "@usedapp/core"
 import { Box, Flex, Text, FormControl, Textarea, Spinner, useToast } from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
 import { ChangeEvent, useEffect, useState } from "react"
-import { Tweet } from "app/playgrounds/models/tweet"
+import { Tweet } from "app/playgrounds/models/twitter_eth/tweet"
 import { SideBar, HeaderTabType } from "app/playgrounds/components/twitter_eth/Sidebar"
 import { utils, Contract } from "ethers"
 import ABI from "app/playgrounds/resources/twitter-abi.json"
-import dayjs from "dayjs"
-import relativeTime from "dayjs/plugin/relativeTime"
-import { FlatButton } from "app/playgrounds/components/twitter_eth/FlatButton"
-dayjs.extend(relativeTime)
-
-// const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-const CONTRACT_ADDRESS = "0x8eceeBF245D9e2c5737d1cB4Bd5fF927CC24F46c"
+import { TweetBox } from "app/playgrounds/components/twitter_eth/TweetBox"
 
 let timer: NodeJS.Timer
 const MainContent = () => {
@@ -28,7 +22,11 @@ const MainContent = () => {
   const getTimelineTweets = async (offset: number, limit: number): Promise<Tweet[]> => {
     if (library !== undefined) {
       const inteface = new utils.Interface(ABI.abi)
-      const contract = new Contract(CONTRACT_ADDRESS, inteface, library?.getSigner())
+      const contract = new Contract(
+        `${process.env.TWITTER_ETH_CONTRACT_ID}`,
+        inteface,
+        library?.getSigner()
+      )
       const tweets = await contract.getTimeline(offset, limit)
       return tweets.map((tweet: any) => {
         return {
@@ -46,7 +44,11 @@ const MainContent = () => {
   const postTweet = async (tweet: string): Promise<boolean> => {
     if (library !== undefined) {
       const inteface = new utils.Interface(ABI.abi)
-      const contract = new Contract(CONTRACT_ADDRESS, inteface, library?.getSigner())
+      const contract = new Contract(
+        `${process.env.TWITTER_ETH_CONTRACT_ID}`,
+        inteface,
+        library?.getSigner()
+      )
       await contract.setTweet(tweet)
       return true
     } else {
@@ -57,7 +59,6 @@ const MainContent = () => {
 
   const updateTweets = async () => {
     const tweets: Tweet[] = await getTimelineTweets(0, 100)
-    console.log(tweets)
     setTweets(tweets)
   }
 
@@ -155,35 +156,7 @@ const MainContent = () => {
                   <Spinner color="#1DA1F2" size="lg" />
                 </Box>
               ) : (
-                tweets.map((tweet: Tweet) => (
-                  <Box
-                    key={tweet.timestamp}
-                    w={{
-                      base: "100vw",
-                      sm: "100%",
-                      md: "100%",
-                      lg: "100%",
-                      xl: "100%",
-                    }}
-                    borderBottom="1px solid #eee"
-                  >
-                    <Box p="1rem">
-                      <Flex mb="0.2rem">
-                        <Link href={`/playgrounds/twitter_eth/${tweet.author}`}>
-                          <FlatButton>
-                            <Text fontSize="0.9rem" fontWeight="bold" isTruncated>
-                              {tweet.author}
-                            </Text>
-                          </FlatButton>
-                        </Link>
-                        <Text fontSize="0.9rem" ml="0.5rem" color="rgb(83, 100, 113)">
-                          {dayjs(tweet.timestamp).fromNow()}
-                        </Text>
-                      </Flex>
-                      <Text fontSize="1rem">{tweet.content}</Text>
-                    </Box>
-                  </Box>
-                ))
+                tweets.map((tweet: Tweet) => <TweetBox tweet={tweet} key={tweet.timestamp} />)
               )}
             </Box>
           </Flex>
@@ -193,25 +166,13 @@ const MainContent = () => {
   )
 }
 
-const config: Config = {
-  readOnlyChainId: ChainId.Hardhat,
-  readOnlyUrls: {
-    [ChainId.Hardhat]: "http://localhost:8545",
-  },
-  multicallAddresses: {
-    [ChainId.Hardhat]: "http://localhost:8545",
-  },
-}
-
 const TwitterEthPage: BlitzPage = () => {
   return (
     <>
       <Head>
         <title>Twitter ETH</title>
       </Head>
-      <DAppProvider config={config}>
-        <MainContent />
-      </DAppProvider>
+      <MainContent />
     </>
   )
 }

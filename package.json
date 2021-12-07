@@ -36,6 +36,7 @@
     "ethers": "5.5.1",
     "final-form": "4.20.4",
     "framer-motion": "3.2.0",
+    "nprogress": "0.2.0",
     "react": "alpha",
     "react-dom": "alpha",
     "react-final-form": "6.5.7",
@@ -50,6 +51,7 @@
   },
   "devDependencies": {
     "@types/gtag.js": "0.0.7",
+    "@types/nprogress": "0.2.0",
     "@types/preview-email": "2.0.1",
     "@types/react": "17.0.30",
     "@types/react-syntax-highlighter": "13.5.2",

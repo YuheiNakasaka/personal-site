@@ -17,6 +17,7 @@ const config: BlitzConfig = {
   */
   env: {
     BASE_URL: "https://razokulover.com",
+    TWITTER_ETH_CONTRACT_ID: `${process.env.TWITTER_ETH_CONTRACT_ID}`,
   },
 }
 module.exports = config
