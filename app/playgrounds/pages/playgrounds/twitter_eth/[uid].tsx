@@ -159,15 +159,15 @@ const MainContent = () => {
           }}
           m="0 auto"
         >
-          <SideBar type={HeaderTabType.Profile} account={`${account}`} />
+          <SideBar type={HeaderTabType.Profile} account={account} />
           <Flex flexBasis={0} flexGrow={999} flexDir="column" minH="100vh" borderX="1px solid #eee">
             <Box borderBottom="1px solid #eee">
               <Box w="100%" px="1rem" p="1rem">
                 <Text fontSize="1.4rem" fontWeight="bold">
                   Profile
-                  <Text fontSize="0.5rem" isTruncated>
-                    {uid}
-                  </Text>
+                </Text>
+                <Text fontSize="0.5rem" isTruncated>
+                  {uid}
                 </Text>
               </Box>
               <Box w="100%" px="1rem" p="1rem">
@@ -192,7 +192,7 @@ const MainContent = () => {
                     </Link>
                   </Box>
                 </Flex>
-                {!isOwner && !fetching && (
+                {account && !isOwner && !fetching && (
                   <Box textAlign="center">
                     {isFollowing ? (
                       <Button

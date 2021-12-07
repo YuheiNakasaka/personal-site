@@ -37,7 +37,7 @@ export const TweetBox = ({ tweet }: TweetBoxProps) => {
               </Text>
             </FlatButton>
           </Link>
-          <Text fontSize="0.9rem" ml="0.5rem" color="rgb(83, 100, 113)">
+          <Text fontSize="0.9rem" ml="0.5rem" color="rgb(83, 100, 113)" isTruncated>
             {dayjs(tweet.timestamp).fromNow()}
           </Text>
         </Flex>

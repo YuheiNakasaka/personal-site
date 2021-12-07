@@ -10,7 +10,7 @@ export const HeaderTabType = {
 }
 
 interface SideBarProps {
-  account: string
+  account: string | null | undefined
   type: string
 }
 
@@ -37,7 +37,7 @@ export const SideBar = ({ account, type }: SideBarProps) => {
     >
       <Flex
         p={{
-          base: "1.1rem 1rem 1rem 1rem",
+          base: "1rem 1rem 1rem 1rem",
           xl: "1rem",
         }}
       >
@@ -73,32 +73,34 @@ export const SideBar = ({ account, type }: SideBarProps) => {
           </FlatButton>
         </Flex>
       </Link>
-      <Link href={`/playgrounds/twitter_eth/${account}`}>
-        <Flex
-          p={{
-            base: "1rem",
-            xl: "0 1rem 1rem 1rem",
-          }}
-        >
-          <Icon
-            as={type == HeaderTabType.Profile ? BsPersonFill : BsPerson}
-            mr="1rem"
-            fontSize="2rem"
-          />
-          <FlatButton>
-            <Text
-              fontSize="1.4rem"
-              fontWeight={type == HeaderTabType.Profile ? "bold" : "normal"}
-              display={{
-                base: "none",
-                xl: "block",
-              }}
-            >
-              Profile
-            </Text>
-          </FlatButton>
-        </Flex>
-      </Link>
+      {account && (
+        <Link href={`/playgrounds/twitter_eth/${account}`}>
+          <Flex
+            p={{
+              base: "1rem",
+              xl: "0 1rem 1rem 1rem",
+            }}
+          >
+            <Icon
+              as={type == HeaderTabType.Profile ? BsPersonFill : BsPerson}
+              mr="1rem"
+              fontSize="2rem"
+            />
+            <FlatButton>
+              <Text
+                fontSize="1.4rem"
+                fontWeight={type == HeaderTabType.Profile ? "bold" : "normal"}
+                display={{
+                  base: "none",
+                  xl: "block",
+                }}
+              >
+                Profile
+              </Text>
+            </FlatButton>
+          </Flex>
+        </Link>
+      )}
     </Flex>
   )
 }

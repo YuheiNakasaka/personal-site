@@ -32,6 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
       nprogress.done()
       gtag.pageView(url)
     })
+    nprogress.done()
 
     return () => {
       router.events.off("routeChangeComplete", (url) => {
