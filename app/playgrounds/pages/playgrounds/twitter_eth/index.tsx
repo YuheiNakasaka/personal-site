@@ -20,7 +20,7 @@ const MainContent = () => {
   const [posting, setPosting] = useState(false)
 
   const getTimelineTweets = async (offset: number, limit: number): Promise<Tweet[]> => {
-    if (library !== undefined) {
+    if (library !== undefined && account) {
       const inteface = new utils.Interface(ABI.abi)
       const contract = new Contract(
         `${process.env.TWITTER_ETH_CONTRACT_ID}`,
@@ -42,7 +42,7 @@ const MainContent = () => {
   }
 
   const postTweet = async (tweet: string): Promise<boolean> => {
-    if (library !== undefined) {
+    if (library !== undefined && account) {
       const inteface = new utils.Interface(ABI.abi)
       const contract = new Contract(
         `${process.env.TWITTER_ETH_CONTRACT_ID}`,
@@ -63,7 +63,7 @@ const MainContent = () => {
   }
 
   useEffect(() => {
-    if (library !== undefined) {
+    if (library !== undefined && account) {
       setFetching(true)
       updateTweets().finally(() => {
         setFetching(false)
@@ -97,56 +97,62 @@ const MainContent = () => {
               </Box>
               <Box w="100%" px="1rem">
                 <FormControl py="1rem">
-                  <Textarea
-                    placeholder="What's happening?"
-                    minW="80%"
-                    h="5rem"
-                    fontSize="1.2rem"
-                    border="0"
-                    resize="none"
-                    outline="none"
-                    value={tweetInput}
-                    focusBorderColor="transparent"
-                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-                      setTweetInput(e.target.value)
-                    }}
-                  ></Textarea>
-                  <Flex justifyContent="end">
-                    {!account ? (
-                      <Button
-                        colorScheme="twitter"
-                        borderRadius="999px"
-                        onClick={() => {
-                          activateBrowserWallet()
+                  {account ? (
+                    <>
+                      <Textarea
+                        placeholder="What's happening?"
+                        minW="80%"
+                        h="5rem"
+                        fontSize="1.2rem"
+                        border="0"
+                        resize="none"
+                        outline="none"
+                        value={tweetInput}
+                        focusBorderColor="transparent"
+                        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+                          setTweetInput(e.target.value)
                         }}
-                      >
-                        Connect Wallet!
-                      </Button>
-                    ) : (
-                      <Button
-                        colorScheme="twitter"
-                        borderRadius="999px"
-                        isLoading={posting}
-                        onClick={async () => {
-                          if (!fetching) {
-                            setPosting(true)
-                            const result = await postTweet(tweetInput)
-                            if (result) {
-                              toast({
-                                title: "Tweet posted! Waiting for confirmation...",
-                                status: "success",
-                                isClosable: true,
-                              })
-                              setTweetInput("")
+                      ></Textarea>
+                      <Flex justifyContent="end">
+                        <Button
+                          colorScheme="twitter"
+                          borderRadius="999px"
+                          isLoading={posting}
+                          onClick={async () => {
+                            if (!fetching) {
+                              setPosting(true)
+                              const result = await postTweet(tweetInput)
+                              if (result) {
+                                toast({
+                                  title: "Tweet posted! Waiting for confirmation...",
+                                  status: "success",
+                                  isClosable: true,
+                                })
+                                setTweetInput("")
+                              }
+                              setPosting(false)
                             }
-                            setPosting(false)
-                          }
-                        }}
-                      >
-                        Tweet
-                      </Button>
-                    )}
-                  </Flex>
+                          }}
+                        >
+                          Tweet
+                        </Button>
+                      </Flex>
+                    </>
+                  ) : (
+                    <>
+                      <Flex justifyContent="center">
+                        <Button
+                          colorScheme="twitter"
+                          borderRadius="999px"
+                          onClick={() => {
+                            activateBrowserWallet()
+                          }}
+                        >
+                          Connect Wallet!
+                        </Button>
+                      </Flex>
+                    </>
+                  )}
                 </FormControl>
               </Box>
             </Box>
