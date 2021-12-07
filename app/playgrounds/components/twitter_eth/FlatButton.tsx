@@ -16,6 +16,7 @@ export const FlatButton = forwardRef<HTMLButtonElement, FlatButtonProps>(
         m="0"
         h="auto"
         display="inline"
+        lineHeight="1.5"
         _hover={{ bg: "transparent" }}
         _focus={{ bg: "transparent" }}
         onClick={onClick}

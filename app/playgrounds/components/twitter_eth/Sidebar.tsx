@@ -48,18 +48,18 @@ export const SideBar = ({ account, type }: SideBarProps) => {
         </Link>
       </Flex>
       <Link href={`/playgrounds/twitter_eth`}>
-        <Flex
-          p={{
-            base: "1rem",
-            xl: "1rem",
-          }}
-        >
-          <Icon
-            as={type == HeaderTabType.Home ? RiHome7Fill : RiHome7Line}
-            mr="1rem"
-            fontSize="2rem"
-          />
-          <FlatButton>
+        <FlatButton>
+          <Flex
+            p={{
+              base: "1rem",
+              xl: "1rem",
+            }}
+          >
+            <Icon
+              as={type == HeaderTabType.Home ? RiHome7Fill : RiHome7Line}
+              mr="1rem"
+              fontSize="2rem"
+            />
             <Text
               fontSize="1.4rem"
               fontWeight={type == HeaderTabType.Home ? "bold" : "normal"}
@@ -70,23 +70,23 @@ export const SideBar = ({ account, type }: SideBarProps) => {
             >
               Home
             </Text>
-          </FlatButton>
-        </Flex>
+          </Flex>
+        </FlatButton>
       </Link>
       {account && (
         <Link href={`/playgrounds/twitter_eth/${account}`}>
-          <Flex
-            p={{
-              base: "1rem",
-              xl: "0 1rem 1rem 1rem",
-            }}
-          >
-            <Icon
-              as={type == HeaderTabType.Profile ? BsPersonFill : BsPerson}
-              mr="1rem"
-              fontSize="2rem"
-            />
-            <FlatButton>
+          <FlatButton>
+            <Flex
+              p={{
+                base: "1rem",
+                xl: "0 1rem 1rem 1rem",
+              }}
+            >
+              <Icon
+                as={type == HeaderTabType.Profile ? BsPersonFill : BsPerson}
+                mr="1rem"
+                fontSize="2rem"
+              />
               <Text
                 fontSize="1.4rem"
                 fontWeight={type == HeaderTabType.Profile ? "bold" : "normal"}
@@ -97,8 +97,8 @@ export const SideBar = ({ account, type }: SideBarProps) => {
               >
                 Profile
               </Text>
-            </FlatButton>
-          </Flex>
+            </Flex>
+          </FlatButton>
         </Link>
       )}
     </Flex>
