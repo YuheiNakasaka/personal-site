@@ -22,6 +22,11 @@ const Layout = ({ title, children }: LayoutProps) => {
     <>
       <Head>
         <title>{title || "personal-site"}</title>
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:creator" content="@razokulover" />
+        <meta property="og:url" content={`${process.env.BASE_URL}/playgrounds/twitter_eth`} />
+        <meta property="og:title" content="razokulover" />
+        <meta property="og:image" content={`${process.env.BASE_URL}/razokulover-icon.png`} />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <style>
