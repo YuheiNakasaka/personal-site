@@ -7,9 +7,12 @@ import { useCallNFTLogin } from "app/playgrounds/hooks/useCallNFTLogin"
 import { useState } from "react"
 
 const config: Config = {
-  readOnlyChainId: ChainId.Localhost,
+  readOnlyChainId: ChainId.Hardhat,
   readOnlyUrls: {
-    [ChainId.Localhost]: "http://localhost:8545",
+    [ChainId.Hardhat]: "http://localhost:8545",
+  },
+  multicallAddresses: {
+    [ChainId.Hardhat]: "http://localhost:8545",
   },
 }
 
@@ -33,7 +36,7 @@ const MainContent = () => {
                 activateBrowserWallet()
               }}
             >
-              Connect Wallet!
+              Connect Wallet!(localhost only)
             </Button>
           )}
           {account && (
@@ -43,7 +46,7 @@ const MainContent = () => {
                   setAuthenticated(await hasValidNFT(account))
                 }}
               >
-                Show the limited contents?
+                Show the limited contents? If not, you don&apos;t have NFT.
               </Button>
             </Box>
           )}
