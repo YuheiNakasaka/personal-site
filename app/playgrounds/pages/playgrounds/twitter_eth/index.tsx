@@ -76,8 +76,10 @@ const MainContent = () => {
           contract.on(filters(), (author: string, _: string) => {
             updateTweets()
             if (author === account) {
+              toast.closeAll()
               toast({
                 title: "Tweet confirmed successfully!",
+                position: "top",
                 status: "success",
                 isClosable: true,
               })
@@ -152,8 +154,9 @@ const MainContent = () => {
                               if (result) {
                                 toast({
                                   title: "Tweet posted! Waiting for confirmation...",
+                                  position: "top",
                                   status: "success",
-                                  isClosable: true,
+                                  duration: null,
                                 })
                                 setTweetInput("")
                               }
