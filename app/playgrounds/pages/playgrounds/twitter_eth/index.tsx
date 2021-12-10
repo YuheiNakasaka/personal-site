@@ -6,11 +6,10 @@ import { Button } from "@chakra-ui/button"
 import { ChangeEvent, useEffect, useState } from "react"
 import { Tweet } from "app/playgrounds/models/twitter_eth/tweet"
 import { SideBar, HeaderTabType } from "app/playgrounds/components/twitter_eth/Sidebar"
-import { utils, Contract } from "ethers"
+import { utils, Contract, ethers } from "ethers"
 import ABI from "app/playgrounds/resources/twitter-abi.json"
 import { TweetBox } from "app/playgrounds/components/twitter_eth/TweetBox"
 
-let timer: NodeJS.Timer
 const MainContent = () => {
   const toast = useToast()
   const { activateBrowserWallet, account, library } = useEthers()
@@ -49,7 +48,7 @@ const MainContent = () => {
         inteface,
         library?.getSigner()
       )
-      await contract.setTweet(tweet)
+      await contract.setTweetV2(tweet)
       return true
     } else {
       console.log("Library is undefined")
@@ -62,16 +61,44 @@ const MainContent = () => {
     setTweets(tweets)
   }
 
+  const subscribeTweeted = async () => {
+    if (library !== undefined && account) {
+      const inteface = new utils.Interface(ABI.abi)
+      const contract = new Contract(
+        `${process.env.TWITTER_ETH_CONTRACT_ID}`,
+        inteface,
+        library?.getSigner()
+      )
+      const provider = new ethers.providers.Web3Provider(library.provider)
+      const filters = contract.filters["Tweeted"]
+      if (filters !== undefined) {
+        provider.once("block", () => {
+          contract.on(filters(), (author: string, _: string) => {
+            updateTweets()
+            if (author === account) {
+              toast({
+                title: "Tweet confirmed successfully!",
+                status: "success",
+                isClosable: true,
+              })
+            }
+          })
+        })
+      }
+      return true
+    } else {
+      console.log("Library is undefined")
+      return false
+    }
+  }
+
   useEffect(() => {
     if (library !== undefined && account) {
       setFetching(true)
       updateTweets().finally(() => {
         setFetching(false)
       })
-      clearInterval(timer)
-      timer = setInterval(() => {
-        updateTweets()
-      }, 5000)
+      subscribeTweeted()
     }
   }, [library])
 
