@@ -1,5 +1,5 @@
 import { Link } from "blitz"
-import { Flex, Box, Text } from "@chakra-ui/react"
+import { Flex, Box, Text, Image } from "@chakra-ui/react"
 import { FlatButton } from "app/playgrounds/components/twitter_eth/FlatButton"
 import { Tweet } from "app/playgrounds/models/twitter_eth/tweet"
 import dayjs from "dayjs"
@@ -13,6 +13,10 @@ export const HeaderTabType = {
 
 interface TweetBoxProps {
   tweet: Tweet
+}
+
+interface TweetImageBoxProps {
+  url: string
 }
 
 export const TweetBox = ({ tweet }: TweetBoxProps) => {
@@ -42,6 +46,11 @@ export const TweetBox = ({ tweet }: TweetBoxProps) => {
           </Text>
         </Flex>
         <Text fontSize="1rem">{tweet.content}</Text>
+        {tweet.attachment && (
+          <Flex justifyContent="center" my="1rem">
+            <Image src={tweet.attachment} alt="expected image" maxHeight="200px" />
+          </Flex>
+        )}
       </Box>
     </Box>
   )

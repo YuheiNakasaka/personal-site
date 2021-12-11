@@ -1,22 +1,39 @@
 import { Head, BlitzPage } from "blitz"
 import Layout from "app/playgrounds/layouts/twitter_eth/Layout"
 import { useEthers } from "@usedapp/core"
-import { Box, Flex, Text, FormControl, Textarea, Spinner, useToast } from "@chakra-ui/react"
+import {
+  Box,
+  Flex,
+  Text,
+  FormControl,
+  Textarea,
+  Spinner,
+  useToast,
+  Icon,
+  Spacer,
+  Image,
+  Tooltip,
+} from "@chakra-ui/react"
 import { Button } from "@chakra-ui/button"
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useRef, useState } from "react"
 import { Tweet } from "app/playgrounds/models/twitter_eth/tweet"
 import { SideBar, HeaderTabType } from "app/playgrounds/components/twitter_eth/Sidebar"
 import { utils, Contract, ethers } from "ethers"
 import ABI from "app/playgrounds/resources/twitter-abi.json"
 import { TweetBox } from "app/playgrounds/components/twitter_eth/TweetBox"
+import { FlatButton } from "app/playgrounds/components/twitter_eth/FlatButton"
+import { FiImage } from "react-icons/fi"
+import { AiFillCloseCircle } from "react-icons/ai"
 
 const MainContent = () => {
   const toast = useToast()
   const { activateBrowserWallet, account, library } = useEthers()
   const [tweetInput, setTweetInput] = useState("")
+  const [tweetInputImage, setTweetInputImage] = useState("")
   const [tweets, setTweets] = useState<Tweet[]>([])
   const [fetching, setFetching] = useState(false)
   const [posting, setPosting] = useState(false)
+  const inputFileRef = useRef<HTMLInputElement>(null)
 
   const getTimelineTweets = async (offset: number, limit: number): Promise<Tweet[]> => {
     if (library !== undefined && account) {
@@ -32,6 +49,7 @@ const MainContent = () => {
           content: tweet.content,
           author: tweet.author,
           timestamp: tweet.timestamp.toNumber() * 1000,
+          attachment: tweet.attachment || "",
         }
       })
     } else {
@@ -40,7 +58,7 @@ const MainContent = () => {
     }
   }
 
-  const postTweet = async (tweet: string): Promise<boolean> => {
+  const postTweet = async (tweet: string, tweetInputImage: string): Promise<boolean> => {
     if (library !== undefined && account) {
       const inteface = new utils.Interface(ABI.abi)
       const contract = new Contract(
@@ -48,8 +66,19 @@ const MainContent = () => {
         inteface,
         library?.getSigner()
       )
-      await contract.setTweetV2(tweet)
-      return true
+      return await contract
+        .setTweet(tweet, tweetInputImage)
+        .then(() => true)
+        .catch((e) => {
+          toast({
+            title: "Error",
+            description: `Error: ${e.message}`,
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          })
+          return false
+        })
     } else {
       console.log("Library is undefined")
       return false
@@ -142,7 +171,58 @@ const MainContent = () => {
                           setTweetInput(e.target.value)
                         }}
                       ></Textarea>
+                      {tweetInputImage !== "" && (
+                        <Flex justifyContent="center" my="1rem">
+                          <Box>
+                            <Image src={tweetInputImage} alt="expected image" maxHeight="200px" />
+                            <Box textAlign="center">
+                              <FlatButton
+                                onClick={() => {
+                                  setTweetInputImage("")
+                                  if (inputFileRef.current) {
+                                    inputFileRef.current.value = ""
+                                  }
+                                }}
+                              >
+                                <Icon as={AiFillCloseCircle} fontSize="2rem" color="#000000" />
+                              </FlatButton>
+                            </Box>
+                          </Box>
+                        </Flex>
+                      )}
                       <Flex justifyContent="end">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          ref={inputFileRef}
+                          hidden
+                          onChange={(e) => {
+                            const file = e.target.files?.[0]
+                            if (file) {
+                              const reader = new FileReader()
+                              reader.onload = () => {
+                                const dataUri = `${reader.result}`
+                                setTweetInputImage(`${dataUri}`)
+                              }
+                              reader.readAsDataURL(file)
+                            }
+                          }}
+                        />
+                        <FlatButton
+                          onClick={() => {
+                            if (inputFileRef.current) {
+                              inputFileRef.current.click()
+                            }
+                          }}
+                        >
+                          <Icon as={FiImage} fontSize="1.6rem" color="#1DA1F2" />
+                        </FlatButton>
+                        <FlatButton>
+                          <Text fontSize="0.8rem" color="gray.400">
+                            ~25kb
+                          </Text>
+                        </FlatButton>
+                        <Spacer />
                         <Button
                           colorScheme="twitter"
                           borderRadius="999px"
@@ -150,7 +230,7 @@ const MainContent = () => {
                           onClick={async () => {
                             if (!fetching) {
                               setPosting(true)
-                              const result = await postTweet(tweetInput)
+                              const result = await postTweet(tweetInput, tweetInputImage)
                               if (result) {
                                 toast({
                                   title: "Tweet posted! Waiting for confirmation...",
@@ -159,6 +239,7 @@ const MainContent = () => {
                                   duration: null,
                                 })
                                 setTweetInput("")
+                                setTweetInputImage("")
                               }
                               setPosting(false)
                             }
