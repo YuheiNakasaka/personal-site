@@ -219,7 +219,7 @@ const MainContent = () => {
                         </FlatButton>
                         <FlatButton>
                           <Text fontSize="0.8rem" color="gray.400">
-                            ~25kb
+                            tiny image only
                           </Text>
                         </FlatButton>
                         <Spacer />
