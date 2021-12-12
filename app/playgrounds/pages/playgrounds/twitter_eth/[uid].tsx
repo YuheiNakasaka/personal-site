@@ -33,9 +33,11 @@ const MainContent = () => {
       const tweets = await contract.getUserTweets(address)
       return tweets.map((tweet: any) => {
         return {
+          tokenId: tweet.tokenId,
           content: tweet.content,
           author: tweet.author,
           timestamp: tweet.timestamp.toNumber() * 1000,
+          attachment: tweet.attachment || "",
         }
       })
     } else {

@@ -46,6 +46,7 @@ const MainContent = () => {
       const tweets = await contract.getTimeline(offset, limit)
       return tweets.map((tweet: any) => {
         return {
+          tokenId: tweet.tokenId,
           content: tweet.content,
           author: tweet.author,
           timestamp: tweet.timestamp.toNumber() * 1000,
