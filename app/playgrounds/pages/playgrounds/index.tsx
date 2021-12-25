@@ -69,7 +69,8 @@ const PlaygroundsPage: BlitzPage = () => {
           <ListBox
             title="Twitter ETH"
             description="The implementation of dApp like Twitter for Ethereum(ropsten)"
-            url="/playgrounds/twitter_eth"
+            url="https://twitter-eth.vercel.app/"
+            external={true}
           />
         </Box>
       </Flex>
