@@ -72,6 +72,12 @@ const PlaygroundsPage: BlitzPage = () => {
             url="https://twitter-eth.vercel.app/"
             external={true}
           />
+          <ListBox
+            title="ごろたん検索"
+            description="ごろたんの検索ができます"
+            url="/playgrounds/gorotan_search"
+            external={true}
+          />
         </Box>
       </Flex>
     </>
