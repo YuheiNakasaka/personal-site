@@ -56,20 +56,30 @@ const PlaygroundsPage: BlitzPage = () => {
             url="/playgrounds/asset_search"
           />
           <ListBox
-            title="ハロメン名前シャッフル"
-            description="ハロメンの名前をシャッフルできます。"
-            url="https://haropuro-shuffle.pages.dev/"
-            external={true}
-          />
-          <ListBox
             title="NFT Login"
             description="If you have a specific NFT, you can access a page. (localhost only)"
             url="/playgrounds/nft_login"
           />
           <ListBox
+            title="Personal Sign"
+            description="Walletで署名を使ってアドレスを認証するデモ"
+            url="/playgrounds/personal_sign"
+          />
+          <ListBox
+            title="NFT Owner Checker"
+            description="ERC721とERC1155の保有状況を調べるためのデモ"
+            url="/playgrounds/nft_owner_checker"
+          />
+          <ListBox
             title="Twitter ETH"
             description="The implementation of dApp like Twitter for Ethereum(ropsten)"
             url="https://twitter-eth.vercel.app/"
+            external={true}
+          />
+          <ListBox
+            title="ハロメン名前シャッフル"
+            description="ハロメンの名前をシャッフルできます。"
+            url="https://haropuro-shuffle.pages.dev/"
             external={true}
           />
           <ListBox
