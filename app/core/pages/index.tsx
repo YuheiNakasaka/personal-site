@@ -29,11 +29,6 @@ const Home: BlitzPage = () => {
                   </Link>
                 </ListItem>
                 <ListItem>
-                  <Link href="/playgrounds" fontSize="2xl" isExternal>
-                    Playgrounds
-                  </Link>
-                </ListItem>
-                <ListItem>
                   <Link href="https://scrapbox.io/razokulover-tech-memo/" fontSize="2xl" isExternal>
                     Tech memo <ExternalLinkIcon mx="0.1rem" />
                   </Link>
