@@ -29,11 +29,6 @@ const Home: BlitzPage = () => {
                   </Link>
                 </ListItem>
                 <ListItem>
-                  <Link href="/diaries" fontSize="2xl">
-                    Diary
-                  </Link>
-                </ListItem>
-                <ListItem>
                   <Link href="/playgrounds" fontSize="2xl" isExternal>
                     Playgrounds
                   </Link>
