@@ -7,14 +7,13 @@ const config: BlitzConfig = {
       isAuthorized: simpleRolesIsAuthorized,
     }),
   ],
-  /* Uncomment this to customize the webpack config
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Note: we provide webpack above so you should not `require` it
-    // Perform customizations to webpack config
-    // Important: return the modified config
+  webpack: (config, { isServer }) => {
+    config.experiments = {
+      asyncWebAssembly: true,
+    }
+    config.output.webassemblyModuleFilename = (isServer ? "../" : "") + "static/wasm/sb2md.wasm"
     return config
   },
-  */
   env: {
     BASE_URL: "https://razokulover.com",
     TWITTER_ETH_CONTRACT_ID: `${process.env.TWITTER_ETH_CONTRACT_ID}`,
