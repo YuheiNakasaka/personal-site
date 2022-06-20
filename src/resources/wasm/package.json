@@ -1,0 +1,12 @@
+{
+  "name": "sb2md_converter",
+  "version": "0.1.0",
+  "files": [
+    "sb2md_converter_bg.wasm",
+    "sb2md_converter.js",
+    "sb2md_converter.d.ts"
+  ],
+  "module": "sb2md_converter.js",
+  "types": "sb2md_converter.d.ts",
+  "sideEffects": false
+}

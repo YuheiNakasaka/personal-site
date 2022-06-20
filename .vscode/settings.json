@@ -5,6 +5,6 @@
     "source.fixAll.eslint": true
   },
   "eslint.options": {
-    "configFile": ".eslintrc.js"
+    "overrideConfigFile": ".eslintrc.json"
   }
 }
