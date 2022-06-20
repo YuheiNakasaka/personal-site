@@ -1,69 +1,40 @@
 {
   "name": "personal-site",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "predev": "docker-compose up -d",
-    "dev": "blitz dev",
-    "build": "blitz build",
-    "start": "blitz start",
-    "studio": "blitz prisma studio",
-    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "prepare": "husky install"
-  },
-  "prisma": {
-    "schema": "db/schema.prisma"
-  },
-  "prettier": {
-    "semi": false,
-    "printWidth": 100
-  },
-  "lint-staged": {
-    "*.{js,ts,tsx}": [
-      "eslint --fix"
-    ]
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/icons": "1.0.16",
-    "@chakra-ui/react": "1.1.2",
-    "@emotion/react": "11.1.4",
-    "@emotion/styled": "11.0.0",
-    "@prisma/client": "3.2.1",
-    "@usedapp/core": "0.6.3",
-    "blitz": "0.41.1",
-    "dayjs": "1.10.7",
-    "ethers": "5.5.1",
-    "final-form": "4.20.4",
-    "framer-motion": "3.2.0",
-    "nprogress": "0.2.0",
-    "react": "alpha",
-    "react-dom": "alpha",
-    "react-final-form": "6.5.7",
-    "react-icons": "4.3.1",
-    "react-image-file-resizer": "0.4.7",
-    "react-markdown": "6.0.3",
-    "react-share": "4.4.0",
-    "react-syntax-highlighter": "15.4.4",
-    "react-twitter-widgets": "1.10.0",
-    "use-http": "1.0.26",
-    "zod": "3.10.1"
+    "@chakra-ui/icons": "^2.0.2",
+    "@chakra-ui/react": "^2.2.1",
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@types/gtag.js": "^0.0.10",
+    "@types/nprogress": "^0.2.0",
+    "@usedapp/core": "^1.0.9",
+    "dayjs": "^1.11.3",
+    "ethers": "^5.6.9",
+    "final-form": "^4.20.7",
+    "framer-motion": "^6.3.11",
+    "next": "12.1.6",
+    "nprogress": "^0.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-final-form": "^6.5.9",
+    "zod": "^3.17.3"
   },
   "devDependencies": {
-    "@types/gtag.js": "0.0.7",
-    "@types/nprogress": "0.2.0",
-    "@types/preview-email": "2.0.1",
-    "@types/react": "17.0.30",
-    "@types/react-syntax-highlighter": "13.5.2",
-    "eslint": "7.32.0",
-    "husky": "6.0.0",
-    "lint-staged": "10.5.4",
-    "prettier": "2.4.1",
-    "prettier-plugin-prisma": "0.15.0",
-    "pretty-quick": "3.1.1",
-    "preview-email": "3.0.5",
-    "prisma": "3.2.1",
-    "typescript": "~4.3"
-  },
-  "private": true
+    "@testing-library/react": "^13.3.0",
+    "@types/jest": "^28.1.2",
+    "@types/node": "18.0.0",
+    "@types/react": "18.0.14",
+    "@types/react-dom": "18.0.5",
+    "eslint": "8.18.0",
+    "eslint-config-next": "12.1.6",
+    "typescript": "4.7.4"
+  }
 }
