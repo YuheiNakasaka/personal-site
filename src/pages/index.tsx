@@ -60,7 +60,7 @@ const Home: NextPage = () => {
                     fontSize="2xl"
                     isExternal
                   >
-                    Tech memo <ExternalLinkIcon mx="0.1rem" />
+                    Tech Scraps <ExternalLinkIcon mx="0.1rem" />
                   </Link>
                 </ListItem>
                 <ListItem>
