@@ -20,25 +20,6 @@ const MigawariAboutPage: NextPage = () => {
 
           <h1>Migawari ~しつこいセールスや勧誘を男の声で撃退~</h1>
 
-          <p>
-            Migawariはしつこい訪問販売や勧誘に困っている一人暮らしの方向けに男性のボイスを提供するアプリです。
-          </p>
-
-          <p>
-            「しつこいセールスを強く追い払えない」
-            「女性だとナメてかかってくる」
-            「出前の配達員に女性の一人暮らしであることを悟られたく無い」
-            等の場合に使うと有効です。
-            使い方は簡単。アプリを開きインターホンに近づけ、相手の返答に合ったボイスを選択し再生するだけです。
-            ボイスのリクエストがある場合は[設定] &gt;
-            [ボイスリクエスト]からご連絡ください。
-          </p>
-
-          <p>
-            ■注意 ・このボイスを使っても勧誘を100%追い払える訳ではありません
-            ・このアプリを使ってトラブルが発生しても一切責任は追えません
-          </p>
-
           <div className="dl-icons">
             <div className="dl-icon">
               <a
@@ -69,17 +50,48 @@ const MigawariAboutPage: NextPage = () => {
               </a>
             </div>
           </div>
+
+          <p>
+            Migawariはしつこい訪問販売や勧誘に困っている一人暮らしの方向けに男性のボイスを提供するアプリです。
+          </p>
+
+          <p>
+            「しつこいセールスを強く追い払えない」
+            「女性だとナメてかかってくる」
+            「出前の配達員に女性の一人暮らしであることを悟られたく無い」
+            等の場合に使うと有効です。
+            使い方は簡単。アプリを開きインターホンに近づけ、相手の返答に合ったボイスを選択し再生するだけです。
+            ボイスのリクエストがある場合は[設定] &gt;
+            [ボイスリクエスト]からご連絡ください。
+          </p>
+
+          <p>
+            ■注意 ・このボイスを使っても勧誘を100%追い払える訳ではありません
+            ・このアプリを使ってトラブルが発生しても一切責任は追えません
+          </p>
+
+          <div className="video-section">
+            <h2>実際のデモ(※音が出ます)</h2>
+            <video width="50%" controls>
+              <source src="../../migawari_demo.mp4" type="video/mp4" />
+            </video>
+          </div>
         </div>
       </section>
       <style global jsx>{`
+        h1,
+        h2,
+        p {
+          padding: 20px 0 0 0;
+        }
         .container {
           min-height: 100vh;
           display: flex;
           justify-content: center;
           align-items: center;
-          text-align: center;
         }
         .section {
+          max-width: 600px;
           padding: 10px;
         }
         .section .icon {
@@ -93,7 +105,7 @@ const MigawariAboutPage: NextPage = () => {
         .section .dl-icons {
           display: flex;
           justify-content: center;
-          margin-top: 40px;
+          margin-top: 1rem;
         }
         .section .dl-icons .dl-icon {
           display: inline-block;
@@ -107,9 +119,24 @@ const MigawariAboutPage: NextPage = () => {
         .section .dl-icons .dl-icon img.android {
           width: 140px;
         }
-        h1,
-        p {
-          padding: 20px 0 0 0;
+        h1 {
+          font-size: 1.5rem;
+          font-weight: bold;
+        }
+        h2 {
+          font-size: 1.2rem;
+          font-weight: bold;
+        }
+        .video-section {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          margin: 1rem 0 4rem;
+        }
+        video {
+          margin-top: 1rem;
         }
       `}</style>
     </>
