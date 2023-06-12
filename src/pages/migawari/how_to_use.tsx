@@ -51,7 +51,7 @@ const MigawariHowToUsePage: NextPage = () => {
               alignItems={"center"}
               m={"1rem 0 4rem"}
             >
-              <video width="50%" controls>
+              <video width="50%" controls autoPlay muted loop>
                 <source
                   src="../../how_to_sort_favorite_voice_res.mp4"
                   type="video/mp4"
