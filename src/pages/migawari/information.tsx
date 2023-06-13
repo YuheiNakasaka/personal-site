@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { NextPage } from "next";
 import { Box, Flex, Text } from "@chakra-ui/react";
+import Image from "next/image";
 
 const MigawariHowToUsePage: NextPage = () => {
   return (
@@ -15,10 +16,34 @@ const MigawariHowToUsePage: NextPage = () => {
       <Flex>
         <Box p={"10px"} maxW={"600px"}>
           <Text fontSize={"1.5rem"} fontWeight={"bold"}>
-            使い方・よくある質問
+            ◾️ お知らせ
           </Text>
 
-          <Box mt={"2rem"}>
+          <Box mt={"1rem"}>
+            <Text fontSize={"1.2rem"} fontWeight={"bold"}>
+              # v1.0.12
+            </Text>
+            <p>- ボイスをいくつか追加しました</p>
+            <p>- お知らせページを追加しました</p>
+            <p>
+              -
+              ロック画面にウィジェットとして追加できるようになりました(iOSのみ)。ロック画面からアプリを素早く起動できるようになります。
+            </p>
+            <Flex justifyContent={"center"} my={4}>
+              <Image
+                width={210}
+                height={454}
+                src={"/migawari_lock_widget.png"}
+                alt="lock screen widget example"
+              />
+            </Flex>
+          </Box>
+
+          <Text fontSize={"1.5rem"} fontWeight={"bold"} mt={"4rem"}>
+            ◾️ 使い方・よくある質問
+          </Text>
+
+          <Box mt={"1rem"}>
             <Text fontSize={"1.2rem"} fontWeight={"bold"}>
               # ボイスを再生するには？
             </Text>
@@ -51,7 +76,7 @@ const MigawariHowToUsePage: NextPage = () => {
               alignItems={"center"}
               m={"1rem 0 4rem"}
             >
-              <video width="50%" controls autoPlay muted loop>
+              <video width="50%" controls muted>
                 <source
                   src="../../how_to_sort_favorite_voice_res.mp4"
                   type="video/mp4"
