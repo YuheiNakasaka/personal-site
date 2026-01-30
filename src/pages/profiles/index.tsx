@@ -88,18 +88,6 @@ const ProfilesPage: NextPage = () => {
             </Box>
             <Box mt={"2.5rem"}>
               <Text fontSize="2xl" fontWeight="bold">
-                RESUME(Japanese)
-              </Text>
-              <Link
-                href="https://findy-code.io/share_profiles/wSLmwWasT0_mq"
-                fontSize="xl"
-                isExternal
-              >
-                PDF <ExternalLinkIcon mx={"0.1rem"} />
-              </Link>
-            </Box>
-            <Box mt={"2.5rem"}>
-              <Text fontSize="2xl" fontWeight="bold">
                 WORKS
               </Text>
               <UnorderedList>
