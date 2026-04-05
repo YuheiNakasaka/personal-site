@@ -46,7 +46,7 @@ const Home: NextPage = () => {
                     fontSize="2xl"
                     isExternal
                   >
-                    Twitter <ExternalLinkIcon mx="0.1rem" />
+                    X <ExternalLinkIcon mx="0.1rem" />
                   </Link>
                 </ListItem>
                 <ListItem>
@@ -65,24 +65,6 @@ const Home: NextPage = () => {
                     isExternal
                   >
                     Zenn <ExternalLinkIcon mx="0.1rem" />
-                  </Link>
-                </ListItem>
-                <ListItem>
-                  <Link
-                    href="https://yuheinakasaka.github.io/gialog-diary"
-                    fontSize="2xl"
-                    isExternal
-                  >
-                    Diary <ExternalLinkIcon mx="0.1rem" />
-                  </Link>
-                </ListItem>
-                <ListItem>
-                  <Link
-                    href="https://scrapbox.io/razokulover-tech-memo/"
-                    fontSize="2xl"
-                    isExternal
-                  >
-                    Tech Scraps <ExternalLinkIcon mx="0.1rem" />
                   </Link>
                 </ListItem>
               </UnorderedList>
